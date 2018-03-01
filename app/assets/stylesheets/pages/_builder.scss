@@ -1,0 +1,35 @@
+.main-container {
+  padding: 50px;
+}
+#chart-display {
+  height: 400px;
+  width: 100%;
+  background-color: $dark-gray;
+}
+
+#data-sets {
+  margin: 20px 0;
+  border-left: 1px solid $medium-dark-gray;
+  border-right: 1px solid $medium-dark-gray;
+  color: $dark-gray;
+}
+
+.data-set {
+  border-top: 1px solid $medium-dark-gray;
+  display: flex;
+  align-items: center;
+}
+
+.set-label, .set-value {
+  width: 50%;
+  padding: 10px;
+  text-align: left;
+}
+
+.border-right {
+  border-right: 1px solid $medium-dark-gray;
+}
+
+// .border-bottom {
+//   border-bottom: 1px black solid;
+// }
