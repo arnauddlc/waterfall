@@ -11,6 +11,11 @@
 
       <!-- Links when logged in -->
 
+      <% if (params[:action] == 'edit') %>
+        <%= link_to "Export chart", root_path, class: "navbar-button-green" %>
+        <!-- <button class="navbar-button-green">Export</button> -->
+      <% end %>
+
       <!-- Avatar with dropdown menu -->
       <div class="navbar-waterfall-item">
         <div class="dropdown">
