@@ -102,3 +102,20 @@
 .fa-bars:before {
   color: white;
 }
+
+.avatar_initials {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid $green;
+  background-color: #b5b5b5 !important;
+
+  h6 {
+    padding: 0;
+    margin: auto;
+    color: #141414;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+}
