@@ -1,2 +1,8 @@
 <h1>Charts#index</h1>
 <p>Find me in app/views/charts/index.html.erb</p>
+
+<% @charts.each do |chart| %>
+	<%= chart.title %>
+	<%= chart.subtitle %>
+	<%= chart.user.email %>
+<% end %>
