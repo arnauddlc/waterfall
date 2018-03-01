@@ -11,11 +11,14 @@ class ChartsController < ApplicationController
 
   def create
   	@chart = Chart.new(chart_params)
+    @chart.user = current_user
   	@chart.save
   	# something will need to be added to save data_sets as well
+    redirect_to edit_chart_path(@chart)
   end
 
   def edit
+    @dataset = Dataset.new
   end
 
   def update
