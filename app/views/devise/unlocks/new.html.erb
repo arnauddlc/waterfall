@@ -1,7 +1,7 @@
 <div class="banner-devise">
-	<div class="devise-container">
+	<div class="devise-container col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 		<h2>Resend unlock instructions</h2>
-
+		<br>
 		<%= simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
 		  <%= f.error_notification %>
 		  <%= f.full_error :unlock_token %>
@@ -11,10 +11,10 @@
 		  </div>
 
 		  <div class="form-actions">
-		    <%= f.button :submit, "Resend unlock instructions" %>
+		    <%= f.button :submit, "Resend unlock instructions", class: "btn-success" %>
 		  </div>
 		<% end %>
-
+		<br><br>
 		<%= render "devise/shared/links" %>
 	</div>
 </div>
