@@ -2,9 +2,12 @@
 <p>Find me in app/views/charts/edit.html.erb</p>
 <%= render 'form' %>
 
-<% @chart.datasets.each do |dataset| %>
-    <%= dataset.label %>
-    <%= dataset.value %>
-  <% end %>
+<h5>Datasets of <%= @chart.title %>:</h5>
+<ul>
+	<% @chart.datasets.each do |dataset| %>
+	    <li><%= "#{dataset.label} | #{dataset.value}" %>
+	  	</li>
+	  <% end %>
+	</ul>
 
 <%= render 'datasets/form' %>

@@ -1,12 +1,19 @@
 <h1>Charts#index</h1>
 <p>Find me in app/views/charts/index.html.erb</p>
 
-<% @charts.each do |chart| %>
-	<%= chart.title %>
-	<%= chart.subtitle %>
-	<%= chart.user.email %>
-  <% chart.datasets.each do |dataset| %>
-    <%= dataset.label %>
-    <%= dataset.value %>
-    <% end %>
-<% end %>
+<ul>
+	<li>
+		<% @charts.each do |chart| %>
+			<h4><%= chart.title %></h4>
+			<p><%= chart.subtitle %></p>
+			<p><%= chart.user.email %></p>
+			<ul>
+				  <% chart.datasets.each do |dataset| %>
+				    <li><%= "#{dataset.label} | #{dataset.value}" %>
+				    </li>
+				    <% end %>
+			</ul>
+  <%= link_to "edit this chart", edit_chart_path(chart) %>
+	</li>
+		<% end %>
+</ul>
