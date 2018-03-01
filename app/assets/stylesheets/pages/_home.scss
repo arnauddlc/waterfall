@@ -1,1 +1,66 @@
 // Specific CSS for your home-page
+.banner-landing {
+	width: 100%;
+	min-height: 800px;
+	margin: 0;
+	padding: 20px;
+	position: relative;
+	// background-color: $green;
+	color: white;
+	background: linear-gradient(171deg, $dark-gray, $green 77%);
+
+	.container-landing {
+
+		padding: 20px;
+		display: flex;
+		justify-content: space-between;
+		position: relative;
+	}
+
+	.landing-title {
+		align-self: center;
+		padding-left: 45px;
+	}
+
+	.landing-image {
+		margin-top: 10px;
+		// position: absolute;
+		// right: 25px;
+	}
+}
+
+@media (max-width: 1180px) {
+    .container-landing {
+    	display: flex;
+    	flex-direction: column;
+    }
+
+    .landing-title {
+		position: absolute;
+		top: 0;
+		}
+
+    .landing-image {
+    	position: absolute;
+    	top: 200px;
+    	right: 10px;
+    }
+  }
+
+  @media (max-width: 726px) {
+    .container-landing {
+    	display: flex;
+    	flex-direction: column;
+    }
+
+    .landing-title {
+		position: absolute;
+		top: 5px;
+		}
+
+    .landing-image {
+    	position: absolute;
+    	top: 275px;
+    	right: -110px;
+    }
+  }
