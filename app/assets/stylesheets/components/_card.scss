@@ -4,16 +4,19 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   margin: 10px 0;
   position: relative;
-  a {
+  a, .chart-title {
     color: #484848;
     text-decoration: none;
     font-size: 22px;
     font-weight: bolder;
     transition: all 0.25s ease;
   }
-  &:hover a {
+  &:hover .chart-title {
     color: $green;
   }
+}
+.fas:hover {
+  color: $red;
 }
 .card-image {
   width: 100%;
