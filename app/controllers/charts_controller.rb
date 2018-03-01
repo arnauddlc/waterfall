@@ -28,6 +28,7 @@ class ChartsController < ApplicationController
 
   def destroy
   	@chart.destroy
+    redirect_to charts_path
   end
 
 	private

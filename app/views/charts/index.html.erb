@@ -1,19 +1,13 @@
-<h1>Charts#index</h1>
-<p>Find me in app/views/charts/index.html.erb</p>
+<div class="container">
 
-<ul>
-	<li>
-		<% @charts.each do |chart| %>
-			<h4><%= chart.title %></h4>
-			<p><%= chart.subtitle %></p>
-			<p><%= chart.user.email %></p>
-			<ul>
-				  <% chart.datasets.each do |dataset| %>
-				    <li><%= "#{dataset.label} | #{dataset.value}" %>
-				    </li>
-				    <% end %>
-			</ul>
-  <%= link_to "edit this chart", edit_chart_path(chart) %>
-	</li>
-		<% end %>
-</ul>
+  <h2>Select Chart</h2>
+  <%= render 'select_chart' %>
+
+  <h2>Past Projects</h2>
+  <% if @charts.empty? %>
+    <%= render 'no_chart_info' %>
+  <% else %>
+    <%= render 'past_projects' %>
+  <% end %>
+
+</div>
