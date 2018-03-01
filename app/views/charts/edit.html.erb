@@ -1,2 +1,10 @@
 <h1>Charts#edit</h1>
 <p>Find me in app/views/charts/edit.html.erb</p>
+<%= render 'form' %>
+
+<% @chart.datasets.each do |dataset| %>
+    <%= dataset.label %>
+    <%= dataset.value %>
+  <% end %>
+
+<%= render 'datasets/form' %>

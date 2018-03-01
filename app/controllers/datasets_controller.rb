@@ -6,6 +6,7 @@ class DatasetsController < ApplicationController
     @dataset = Dataset.new(dataset_params)
     @dataset.chart = @chart
     @dataset.save
+    redirect_to edit_chart_path(@chart)
   end
 
   def update

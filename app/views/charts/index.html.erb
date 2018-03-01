@@ -5,4 +5,8 @@
 	<%= chart.title %>
 	<%= chart.subtitle %>
 	<%= chart.user.email %>
+  <% chart.datasets.each do |dataset| %>
+    <%= dataset.label %>
+    <%= dataset.value %>
+    <% end %>
 <% end %>
