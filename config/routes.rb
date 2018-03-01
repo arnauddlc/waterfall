@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'charts#index'
+
+	authenticated do
+	  root to: 'charts#index'
+	end
+
+	root to: 'pages#home'
 
   resources :charts, except: :show do
     resources :datasets, only: :create
