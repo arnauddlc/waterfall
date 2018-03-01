@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  get 'charts/index'
-
-  get 'charts/new'
-
-  get 'charts/edit'
-
   devise_for :users
   root to: 'charts#index'
 
