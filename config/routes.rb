@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'charts#index'
 
-  resources :charts, except: [:show]
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :charts, except: :show do
+    resources :datasets, only: :create
+  end
+
+  resources :datasets, only: [:update, :destroy]
 end
