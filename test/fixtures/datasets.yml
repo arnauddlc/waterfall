@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  label: MyString
+  value: 1
+  chart: one
+
+two:
+  label: MyString
+  value: 1
+  chart: two
