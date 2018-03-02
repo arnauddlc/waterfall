@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20180301065445) do
   enable_extension "plpgsql"
 
   create_table "charts", force: :cascade do |t|
-    t.string "title"
-    t.string "subtitle"
+    t.string "title", default: "Chart Title"
+    t.string "subtitle", default: "chart subtitle"
     t.text "notes"
     t.integer "font_size", default: 12
     t.string "color", default: "$green"
