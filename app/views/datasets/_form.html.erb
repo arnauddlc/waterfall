@@ -1,5 +1,17 @@
-<%= simple_form_for([@chart, @dataset]) do |f| %>
-  <%= f.input :label %>
-  <%= f.input :value %>
-  <%= f.button :submit %>
-<% end %>
+<div class="form-table">
+  <%= simple_form_for([@chart, @dataset]) do |f| %>
+  <div class="row">
+    <div class="col-xs-5">
+    <%= f.input :label, placeholder: 'Label', label: false %>
+    </div>
+    <div class="col-xs-5">
+    <%= f.input :value, placeholder: 'Value', label: false %>
+    </div>
+    <div class="col-xs-2">
+      <%= f.button :button do %>
+        <i class="fas fa-plus-circle"></i>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
