@@ -1,13 +1,54 @@
-<h1>Charts#edit</h1>
-<p>Find me in app/views/charts/edit.html.erb</p>
-<%= render 'form' %>
+<div class="main-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#data">DATA</a></li>
+          <li><a data-toggle="tab" href="#design">DESIGN</a></li>
+          <li><a data-toggle="tab" href="#notes">NOTES</a></li>
+        </ul>
 
-<h5>Datasets of <%= @chart.title %>:</h5>
-<ul>
-	<% @chart.datasets.each do |dataset| %>
-	    <li><%= "#{dataset.label} | #{dataset.value}" %>
-	  	</li>
-	  <% end %>
-	</ul>
+        <div class="tab-content">
+          <div id="data" class="tab-pane fade in active">
+            <div id="data-sets-table">
+              <div class="table-heading">
+                <div class="table-cell">
+                  <p>LABEL</p>
+                </div>
+                <div class="table-cell">
+                  <p>VALUE</p>
+                </div>
+              </div>
+              <% @chart.datasets.each do |dataset| %>
+                <div class="table-row">
+                  <div class="table-cell">
+                    <p><%= "#{dataset.label}" %></p>
+                  </div>
+                  <div class="table-cell">
+                    <p><%= "#{dataset.value}" %></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <%= render 'datasets/form' %>
+          </div>
 
-<%= render 'datasets/form' %>
+          <div id="design" class="tab-pane fade">
+            <h3>DESIGN</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+
+          <div id="notes" class="tab-pane fade">
+            <h3>NOTES</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6">
+        <div id="chart-display"></div>
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+</div>
