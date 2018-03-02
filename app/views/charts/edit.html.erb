@@ -27,12 +27,10 @@
                   <div class="table-cell">
                     <p><%= "#{dataset.value}" %></p>
                   </div>
-                  <div class="table-cell edit-delete">
+                  <div class="table-cell-s edit-delete">
                     <%= link_to "" do %>
                       <%= image_tag "pencil.svg" %>
                     <% end %>
-                  </div>
-                  <div class="table-cell edit-delete">
                     <%= link_to image_tag("trash-simple.svg"), dataset_path(dataset), method: :delete, data: { confirm: "Are you sure? " } %>
                   </div>
                 </div>
