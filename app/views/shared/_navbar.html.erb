@@ -1,6 +1,6 @@
 <div class="navbar-waterfall">
       <!-- This is a custom method to toggle show/hide of export button in navbar -->
-      <% def show_export? %> 
+      <% def show_export? %>
         <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
       <% end %>
 
@@ -17,7 +17,7 @@
       <!-- Links when logged in -->
 
       <% if show_export? %>
-        <%= link_to "Export chart", root_path, class: "navbar-button-green" %>
+        <%= link_to "EXPORT", root_path, class: "navbar-button-green" %>
       <% end %>
 
       <!-- Avatar with dropdown menu -->
@@ -56,7 +56,7 @@
       <ul class="dropdown-menu dropdown-menu-right navbar-waterfall-dropdown-menu">
         <% if user_signed_in? %>
           <% if show_export? %>
-            <li><%= link_to "Export chart", root_path %></li>
+            <li><%= link_to "EXPORT", root_path %></li>
           <% end %>
           <li><%= link_to "Profile", edit_user_registration_path %></li>
           <li><%= link_to destroy_user_session_path, method: :delete  do %>
