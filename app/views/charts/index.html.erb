@@ -1,13 +1,21 @@
 <div class="container">
 
-  <h2>Select Chart</h2>
+  <h2>Create a New Chart</h2>
   <%= render 'select_chart' %>
 
-  <h2>Past Projects</h2>
-  <% if @charts.empty? %>
-    <%= render 'no_chart_info' %>
-  <% else %>
-    <%= render 'past_projects' %>
-  <% end %>
+  <h2>My Projects</h2>
+  <div>
+    <% if user_signed_in? && @charts.any? %>
+      <%= render 'past_projects' %>
+    <% else %>
+      <%= render 'no_chart_info' %>
+    <% end %>
+  </div>
+
+  <div class="index-footer">
+    <%= render 'pages/footer' %>
+  </div>
 
 </div>
+
+

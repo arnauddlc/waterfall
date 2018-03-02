@@ -1,20 +1,23 @@
 class ChartsController < ApplicationController
   before_action :set_chart, only: [:edit, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :new, :edit]
-
+  skip_before_action :authenticate_user!, only: [:index, :new, :edit, :create]
+  # helper method to handle guest or logged in users
+  helper_method :current_or_guest_user
 
   def index
-    @charts = Chart.all # Chart.where(user: :current_user)
+    @user = current_user
+    @charts = Chart.where(user: @user)
   end
 
-  def new
-    @chart = Chart.new
-  end
+  # def new
+  #   @chart = Chart.new
+  # end
 
   def create
-    @chart = Chart.new(chart_params)
-    @chart.user = current_user
+    @chart = Chart.new
+    @chart.user = current_or_guest_user
     @chart.save
+    create_3_default_datasets
     # something will need to be added to save data_sets as well
     redirect_to edit_chart_path(@chart)
   end
@@ -34,6 +37,18 @@ class ChartsController < ApplicationController
   end
 
   private
+
+  def create_3_default_datasets
+    labels = ["Jan", "Feb", "Mar"]
+    values = [10, 12, 8]
+    i = 0
+    3.times do
+      new_dataset = Dataset.new(label: labels[i], value: values[i])
+      new_dataset.chart = @chart
+      new_dataset.save
+      i += 1
+    end
+  end
 
   def set_chart
     @chart = Chart.find(params[:id])

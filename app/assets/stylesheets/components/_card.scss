@@ -14,9 +14,19 @@
       color: $green;
     }
   }
-}
-.fas:hover {
-  color: $red;
+  .fa-trash-alt {
+    align-items: center;
+    padding-top: 5px;
+    color: #484848;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bolder;
+    transition: all 0.25s ease;
+    &:hover {
+      color: $red;
+      cursor: pointer;
+    }
+  }
 }
 .card-image {
   width: 100%;

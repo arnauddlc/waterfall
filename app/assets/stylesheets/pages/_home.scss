@@ -1,5 +1,6 @@
 // Specific CSS for your home-page
 .banner-landing {
+	display: block;
 	width: 100%;
 	min-height: 800px;
 	margin: 0;
@@ -30,6 +31,10 @@
 }
 
 @media (max-width: 1180px) {
+		.banner-landing{
+			min-height: 1000px;
+		}
+
     .container-landing {
     	display: flex;
     	flex-direction: column;
@@ -48,6 +53,10 @@
   }
 
   @media (max-width: 726px) {
+		.banner-landing{
+			min-height: 1000px;
+		}
+
     .container-landing {
     	display: flex;
     	flex-direction: column;

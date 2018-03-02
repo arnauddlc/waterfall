@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
 	root to: 'pages#home'
 
-  resources :charts, except: :show do
+  resources :charts, except: [:new, :show] do
     resources :datasets, only: :create
   end
 
