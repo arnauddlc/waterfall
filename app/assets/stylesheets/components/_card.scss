@@ -10,9 +10,9 @@
     font-size: 22px;
     font-weight: bolder;
     transition: all 0.25s ease;
-  }
-  &:hover .chart-title {
-    color: $green;
+    &:hover {
+      color: $green;
+    }
   }
 }
 .fas:hover {
