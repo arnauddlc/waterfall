@@ -1,0 +1,5 @@
+<%= simple_form_for(@chart) do |f| %>
+  <%= f.input :font_size, collection: [ 8, 12, 16, 24, 32] %>
+  <%= f.input :color %>
+  <%= f.button :submit %>
+<% end %>
