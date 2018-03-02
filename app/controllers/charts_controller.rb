@@ -4,9 +4,9 @@ class ChartsController < ApplicationController
   # helper method to handle guest or logged in users
   helper_method :current_or_guest_user
 
-
   def index
-    @charts = Chart.all # Chart.where(user: :current_user)
+    @user = current_user
+    @charts = Chart.where(user: @user)
   end
 
   def new
