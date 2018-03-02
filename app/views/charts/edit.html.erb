@@ -27,6 +27,16 @@
                   <div class="table-cell">
                     <p><%= "#{dataset.value}" %></p>
                   </div>
+                  <div class="table-cell edit-delete">
+                    <%= link_to "" do %>
+                      <%= image_tag "pencil.svg" %>
+                    <% end %>
+                  </div>
+                  <div class="table-cell edit-delete">
+                    <%= link_to "" do %>
+                      <%= image_tag "trash-simple.svg" %>
+                    <% end %>
+                  </div>
                 </div>
               <% end %>
             </div>
