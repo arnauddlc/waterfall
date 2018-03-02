@@ -15,7 +15,9 @@ class DatasetsController < ApplicationController
   end
 
   def destroy
+    @chart = @dataset.chart
     @dataset.destroy
+    redirect_to edit_chart_path(@chart)
   end
 
   private

@@ -33,9 +33,7 @@
                     <% end %>
                   </div>
                   <div class="table-cell edit-delete">
-                    <%= link_to "" do %>
-                      <%= image_tag "trash-simple.svg" %>
-                    <% end %>
+                    <%= link_to image_tag("trash-simple.svg"), dataset_path(dataset), method: :delete, data: { confirm: "Are you sure? " } %>
                   </div>
                 </div>
               <% end %>
