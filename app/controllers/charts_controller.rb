@@ -9,12 +9,12 @@ class ChartsController < ApplicationController
     @charts = Chart.where(user: @user)
   end
 
-  def new
-    @chart = Chart.new
-  end
+  # def new
+  #   @chart = Chart.new
+  # end
 
   def create
-    @chart = Chart.new(chart_params)
+    @chart = Chart.new
     @chart.user = current_or_guest_user
     @chart.save
     create_3_default_datasets
