@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
+  # this is additional code to allow only admin to admin section of the website
+  # before_action :authenticate_admin!, if: :rails_admin_url
+
   # this is additional code to include first and last names in sign up and user models
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -37,6 +40,13 @@ class ApplicationController < ActionController::Base
 
     # For additional in app/views/devise/registrations/edit.html.erb
     devise_parameter_sanitizer.permit(:account_update, keys: [:username])
+  end
+
+  def authenticate_admin!
+    unless current_user.admin
+      flash[:alert] = "You do not have the rights to access the admin panel"
+      redirect_to root_path
+    end
   end
 
   private
