@@ -1,35 +1,36 @@
 .main-container {
   padding: 50px;
 }
+
 #chart-display {
   height: 400px;
   width: 100%;
   background-color: $dark-gray;
 }
 
-#data-sets {
-  margin: 20px 0;
-  border-left: 1px solid $medium-dark-gray;
-  border-right: 1px solid $medium-dark-gray;
-  color: $dark-gray;
+#data-sets-table {
+  display: table;
+  width: 100%;
+  margin-top: 30px;
+  p {
+    margin: 0;
+  }
 }
 
-.data-set {
-  border-top: 1px solid $medium-dark-gray;
-  display: flex;
-  align-items: center;
+.table-heading {
+  display: table-row;
+  font-weight: bold;
+  text-align: center;
 }
 
-.set-label, .set-value {
-  width: 50%;
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+  border: 1px solid $medium-dark-gray;
   padding: 10px;
-  text-align: left;
+  text-align: center;
+  width: 50%;
 }
-
-.border-right {
-  border-right: 1px solid $medium-dark-gray;
-}
-
-// .border-bottom {
-//   border-bottom: 1px black solid;
-// }
