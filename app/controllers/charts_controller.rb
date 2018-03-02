@@ -1,6 +1,6 @@
 class ChartsController < ApplicationController
   before_action :set_chart, only: [:edit, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :new, :edit]
+  skip_before_action :authenticate_user!, only: [:index, :new, :edit, :create]
   # helper method to handle guest or logged in users
   helper_method :current_or_guest_user
 
