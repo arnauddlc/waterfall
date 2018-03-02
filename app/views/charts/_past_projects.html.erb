@@ -1,0 +1,26 @@
+<div class="row">
+  <% @charts.each do |chart| %>
+
+    <div class="col-xs-12 col-sm-4 col-md-3">
+      <div class="card">
+        <%= link_to edit_chart_path(chart) do %>
+          <div class="card-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= image_path 'bar-chart.png' %>')">
+          </div>
+        <% end %>
+
+        <div class="body">
+          <div class="card-title">
+            <%= link_to chart.title, edit_chart_path(chart), class:"chart-title" %>
+          </div>
+          <div class="card-delete">
+            <%= link_to chart_path(chart), method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  <% end %>
+</div>
