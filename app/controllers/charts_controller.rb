@@ -13,7 +13,7 @@ class ChartsController < ApplicationController
 
   def create
     @chart = Chart.new(chart_params)
-    @chart.user = current_user
+    @chart.user = current_or_guest_user
     @chart.save
     create_3_default_datasets
     # something will need to be added to save data_sets as well
