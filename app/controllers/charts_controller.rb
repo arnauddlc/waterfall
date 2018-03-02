@@ -1,5 +1,7 @@
 class ChartsController < ApplicationController
 	before_action :set_chart, only: [:edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index, :new, :edit]
+
 
   def index
   	@charts = Chart.all # Chart.where(user: :current_user)

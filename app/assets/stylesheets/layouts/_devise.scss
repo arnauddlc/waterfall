@@ -1,0 +1,27 @@
+.banner-devise {
+	background: linear-gradient(171deg, $dark-gray, $green 77%);
+	width: 100%;
+	margin: 0;
+	padding: 15px;
+	min-height: 800px;
+}
+
+.devise-container{
+	margin-top: 10px;
+	border-radius: 4px;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.30);
+
+	a {
+		color: $light-gray;
+
+		&:hover {
+			color: $light-gray;
+			text-decoration: underline;
+		}
+	}
+
+	h2 {
+		margin-top: 5px;
+	}
+}
