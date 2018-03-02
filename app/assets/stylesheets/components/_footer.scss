@@ -1,18 +1,20 @@
 
 .footer-container {
-	opacity: 0.4;
-	width: 100%;
-	border-top: 1px solid gray;
+	opacity: 0.2;
+	width: 97%;
+	border-top: 1px solid $dark-gray;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 3px 0;
+	padding: 1px 0;
   padding-left: 15px;
   padding-right: 15px;
 	position: absolute;
 	bottom: 0px;
+  color: $dark-gray !important;
 
 	p {
+    margin: 0;
 		font-size: 12px;
 	}
 
