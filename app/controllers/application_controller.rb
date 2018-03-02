@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
     u.save!(:validate => false)
     session[:guest_user_id] = u.id
     u
+    # binding.pry
   end
 
 end
