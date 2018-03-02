@@ -1,9 +1,9 @@
 <div class="container">
 
-  <h2>Select Chart</h2>
+  <h2>Create a New Chart</h2>
   <%= render 'select_chart' %>
 
-  <h2>Past Projects</h2>
+  <h2>My Projects</h2>
   <div>
     <% if user_signed_in? && @charts.any? %>
       <%= render 'past_projects' %>
