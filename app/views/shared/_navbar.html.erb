@@ -1,4 +1,9 @@
 <div class="navbar-waterfall">
+      <!-- This is a custom method to toggle show/hide of export button in navbar -->
+      <% def show_export? %> 
+        <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
+      <% end %>
+
   <!-- Logo -->
   <%= link_to root_path, class: "navbar-waterfall-brand" do %>
     <%= image_tag "logo.png", height: 50 %>
@@ -10,10 +15,6 @@
     <% if user_signed_in? %>
 
       <!-- Links when logged in -->
-
-      <% def show_export? %> 
-        <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
-      <% end %>
 
       <% if show_export? %>
         <%= link_to "Export chart", root_path, class: "navbar-button-green" %>
