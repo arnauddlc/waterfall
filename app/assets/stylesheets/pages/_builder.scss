@@ -32,7 +32,14 @@
   border: 1px solid $medium-dark-gray;
   padding: 10px;
   text-align: center;
-  width: 50%;
+  width: 44%;
+}
+.table-cell-s {
+  display: table-cell;
+  // border: 1px solid $medium-dark-gray;
+  padding: 10px;
+  text-align: center;
+  width: 12%;
 }
 .table-cell.edit-delete {
   border: none;
