@@ -3,8 +3,13 @@ RailsAdmin.config do |config|
   ### Popular gems integration
 
   ## == Devise ==
+
   config.authenticate_with do
-    warden.authenticate! scope: :user
+    unless current_user.admin
+      flash[:alert] = "You need to have admin rights to access this part"
+      redirect_to(main_app.root_path)
+    end
+    # warden.authenticate! current_user.admin
   end
   config.current_user_method(&:current_user)
 
