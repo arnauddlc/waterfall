@@ -50,9 +50,9 @@
       </div>
 
       <div class="col-xs-6">
-        <div id="chart-display">
+        <!-- <div id="chart-display"> -->
            <svg width="400" height="400"></svg>
-        </div>
+        <!-- </div> -->
         <%= render 'form' %>
       </div>
     </div>
@@ -87,7 +87,7 @@ var g = svg.append("g")
 
   g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10, "%"))
+      .call(d3.axisLeft(y).ticks(10))
     .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
