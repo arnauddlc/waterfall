@@ -1,4 +1,18 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
+
+<style>
+
+.bar rect {
+  fill: <%= chart.color.match(/(?<str_col>\#.*)/)[:str_col] %>;
+}
+
+.bar text {
+  fill: white;
+  font: <%= chart.font_size %> px sans-serif;
+}
+
+</style>
+
 <script>
 
 let DATA = <%= chart.datasets.to_json.html_safe %>;
