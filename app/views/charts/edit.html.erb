@@ -20,13 +20,6 @@
                 </div>
               </div>
 
-              <%= @chart.datasets.first.label %>
-              <% @chart.datasets.each do |dataset| %>
-              <%= dataset.label %>
-              <% end %>
-              <%= @chart.datasets[0].label %>
-              <%= @chart.datasets.first.label %>
-
               <% @chart.datasets.each do |dataset| %>
                 <div class="table-row">
                   <div class="table-cell">
