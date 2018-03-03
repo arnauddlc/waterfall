@@ -7,8 +7,6 @@ Rails.application.routes.draw do
 
 	root to: 'pages#home'
 
-	get "/chart_test", to: "pages#chart_test"
-
   resources :charts, except: [:new, :show] do
     resources :datasets, only: :create
   end
