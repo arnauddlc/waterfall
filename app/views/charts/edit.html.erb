@@ -19,11 +19,11 @@
                   <p>VALUE</p>
                 </div>
               </div>
-                <% @chart.datasets.each do |dataset| %>
-                  <%= render 'datasets/show', dataset: dataset %>
-                <% end %>
+              <% @chart.datasets.each do |dataset| %>
+                <%= render 'datasets/show', dataset: dataset %>
+              <% end %>
             </div>
-            <%= render 'datasets/form', chart: @chart, dataset: @dataset %>
+              <%= render 'datasets/form', chart: @chart, dataset: @dataset %>
           </div>
 
           <div id="design" class="tab-pane fade">
@@ -38,7 +38,7 @@
 
       <div class="col-xs-6">
         <div id="chart-<%= @chart.id %>">
-           <svg width="450" height="400"></svg>
+          <svg width="450" height="400"></svg>
         </div>
         <%= render 'form' %>
       </div>

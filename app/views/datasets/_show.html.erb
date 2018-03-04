@@ -5,10 +5,10 @@
   <div class="table-cell">
     <p><%= "#{dataset.value}" %></p>
   </div>
-  <div class="table-cell-s edit-delete">
+  <div class="table-cell-btn edit-delete">
     <%= link_to edit_dataset_path(dataset), remote: true do %>
       <%= image_tag "pencil.svg" %>
     <% end %>
-    <%= link_to image_tag("trash-simple.svg"), dataset_path(dataset), method: :delete, remote: true, data: { confirm: "Are you sure? " } %>
+    <%= link_to image_tag("trash-simple.svg"), dataset_path(dataset), method: :delete, remote: true %>
   </div>
 </div>
