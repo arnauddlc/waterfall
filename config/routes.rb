@@ -10,8 +10,8 @@ Rails.application.routes.draw do
 	get "/chart_test", to: "pages#chart_test"
 
   resources :charts, except: [:new, :show] do
-    resources :datasets, only: :create
+    resources :datasets, only: [:create, :update]
   end
 
-  resources :datasets, only: [:update, :destroy]
+  resources :datasets, only: [:edit, :destroy]
 end

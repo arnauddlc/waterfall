@@ -1,0 +1,6 @@
+function updateRow() {
+  let row = document.querySelector("[data-dataset-id='<%= @dataset.id %>']")
+  row.outerHTML = "<%= j render 'show', dataset: @dataset %> "
+}
+
+updateRow();

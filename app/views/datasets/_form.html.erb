@@ -1,4 +1,4 @@
-<%= simple_form_for([@chart, @dataset]) do |f| %>
+<%= simple_form_for([chart, dataset], remote: true) do |f| %>
   <div class="form-table">
     <div class="left-form">
       <%= f.input :label, placeholder: 'Label', label: false %>

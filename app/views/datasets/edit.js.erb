@@ -1,0 +1,6 @@
+function insertForm () {
+  let row = document.querySelector("[data-dataset-id='<%= @dataset.id %>']")
+  row.outerHTML = "<%= j render 'inline_form', dataset: @dataset, chart: @chart %>"
+}
+
+insertForm();

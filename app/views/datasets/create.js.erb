@@ -1,0 +1,16 @@
+function refreshForm(innerHTML) {
+  const newDatasetForm = document.getElementById('new_dataset');
+  newDatasetForm.innerHTML = innerHTML;
+}
+
+function addDataset(datasetHTML) {
+  const datasets = document.getElementById('data-sets-table');
+  datasets.insertAdjacentHTML('beforeend', datasetHTML);
+}
+
+<% if @dataset.errors.any? %>
+  refreshForm('<%= j render "datasets/form", chart: @chart, dataset: @dataset %>');
+<% else %>
+  addDataset('<%= j render "datasets/show", dataset: @dataset %>');
+  refreshForm('<%= j render "datasets/form", chart: @chart, dataset: Dataset.new %>');
+<% end %>
