@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20180302130339) do
     t.string "subtitle", default: "Chart Subtitle"
     t.text "notes"
     t.integer "font_size", default: 12
-    t.string "color", default: "$green"
+    t.string "color", default: "$green: #3EC28F"
     t.string "chart_image", default: "http://res.cloudinary.com/arnauddlc/image/upload/v1519980141/waterfall.png"
     t.bigint "user_id"
     t.datetime "created_at", null: false
