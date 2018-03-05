@@ -11,11 +11,11 @@ class DatasetsController < ApplicationController
         format.html { redirect_to edit_chart_path(@chart)}
         format.js # <-- will render `app/views/datasets/create.js.erb`
       end
-    # else
-    #   respond_to do |format|
-    #     format.html { render 'charts/show' }
-    #     format.js
-    #   end
+    else
+      respond_to do |format|
+        format.html { render 'charts/edit' }
+        format.js
+      end
     end
   end
 
@@ -29,7 +29,11 @@ class DatasetsController < ApplicationController
         format.html { redirect_to edit_chart_path(@chart)}
         format.js # <-- will render `app/views/datasets/create.js.erb`
       end
-    # else ?
+    else
+      respond_to do |format|
+        format.html { render 'charts/edit' }
+        format.js
+      end
     end
   end
 
