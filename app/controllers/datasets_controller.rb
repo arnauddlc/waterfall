@@ -1,5 +1,5 @@
 class DatasetsController < ApplicationController
-  before_action :set_dataset, only: [:update, :destroy]
+  before_action :set_dataset, only: [:edit, :update, :destroy]
   skip_before_action :authenticate_user!
 
   def create
