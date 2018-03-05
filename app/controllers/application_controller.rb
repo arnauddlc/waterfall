@@ -49,6 +49,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # This is a custom method to toggle show/hide of export button in navbar
+  def show_export?
+    ((params[:action] == 'edit') && (controller_name == "charts"))
+  end
+
   private
 
   # called (once) when the user logs in, insert any code your application needs
