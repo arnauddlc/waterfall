@@ -1,4 +1,8 @@
 <div class="navbar-waterfall">
+  <!-- This is a custom method to toggle show/hide of export button in navbar -->
+  <% def show_export? %>
+    <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
+  <% end %>
 
   <!-- Logo -->
   <%= link_to root_path, class: "navbar-waterfall-brand" do %>
@@ -13,7 +17,7 @@
       <!-- Links when logged in -->
 
       <% if show_export? %>
-        <p><em>Placeholder for save messages</em></p>
+        <!-- <p><em>Placeholder for save messages</em></p> -->
         <button class="navbar-button-green" id="export_button">EXPORT</button>
       <% end %>
 

@@ -3,6 +3,10 @@
 <% match_col = chart.color.match(/(?<str_col>\#.*)/) %>
 <% col_str = match_col[:str_col] %>
 
+  <!-- This is a custom method to toggle show/hide of export button in navbar -->
+  <% def show_export? %>
+    <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
+  <% end %>
 
 <meta charset="utf-8">
 
