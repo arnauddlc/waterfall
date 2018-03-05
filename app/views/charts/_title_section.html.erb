@@ -1,2 +1,24 @@
-<div id="chart-title"><h3><%= @chart.title %></h3></div>
-<div id="chart-subtitle"><h4><%= @chart.subtitle %></h4></div>
+<div class="all-titles">
+<div id="chart-title"><h4><%= @chart.title %></h4></div>
+<div id="chart-subtitle"><h5><%= @chart.subtitle %></h5></div>
+  <%= image_tag "pencil.svg", id: "pencil-edit" %>
+</div>
+
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+
+<%= content_for(:after_js) do %>
+  <script>
+    const form = document.getElementById('titles-form');
+    const titles = document.getElementById('chart-titles');
+      const pencil = document.getElementById("pencil-edit");
+      pencil.addEventListener("click", (event) => {
+        event.preventDefault;
+        form.classList.toggle("hidden");
+        titles.classList.toggle("hidden")
+      });
+  </script>
+<% end %>
