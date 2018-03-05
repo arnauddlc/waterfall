@@ -38,6 +38,13 @@
 	  display: none;
 	}
 
+  svg text.label {
+    fill:white;
+    font: 15px;
+    font-weight: 400;
+    text-anchor: middle;
+  }
+
 </style>
 
 <script>
@@ -45,7 +52,7 @@
 var datasource = <%= chart.datasets.to_json.html_safe %>;
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: 50, right: 40, bottom: 40, left: 40},
+    margin = {top: 70, right: 40, bottom: 40, left: 40},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -75,7 +82,7 @@ var g = svg.append("g")
 
     g.append("text")
       .attr("x", (width / 2))
-      .attr("y", 0 - (margin.top / 3))
+      .attr("y", 0 - (margin.top / 2))
       .attr("text-anchor", "middle")
       .style("font-size", "30px")
       .text("<%= chart.title %>");
@@ -90,18 +97,14 @@ var g = svg.append("g")
         .attr("width", x.bandwidth())
         .attr("height", function(d) { return height - y(d.value); });
 
-    bar.append("text")
-      .attr("class", "value")
-      .attr("y", barHeight / 2)
-      .attr("dx", -valueMargin + labelWidth) //margin right
-      .attr("dy", ".35em") //vertical align middle
-      .attr("text-anchor", "end")
-      .text(function(d){
-          return (d.value+"%");
-      })
-      .attr("x", function(d){
-          var width = this.getBBox().width;
-          return Math.max(width + valueMargin, scale(d.value));
-      });
+    g.selectAll(".text")
+      .data(datasource)
+      .enter().append("text")
+      .attr("class","value")
+      .attr("x", function(d) { return x(d.label); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("dy", "-5px")
+      .style("font-size", "15px")
+      .text(function(d) { return d.value; });
 
 </script>
