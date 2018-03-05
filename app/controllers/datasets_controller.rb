@@ -2,23 +2,40 @@ class DatasetsController < ApplicationController
   before_action :set_dataset, only: [:update, :destroy]
   skip_before_action :authenticate_user!
 
-
   def create
     @chart = Chart.find(params[:chart_id])
     @dataset = Dataset.new(dataset_params)
     @dataset.chart = @chart
-    @dataset.save
-    redirect_to edit_chart_path(@chart)
+    if @dataset.save
+      respond_to do |format|
+        format.html { redirect_to edit_chart_path(@chart)}
+        format.js # <-- will render `app/views/datasets/create.js.erb`
+      end
+    # else
+    #   respond_to do |format|
+    #     format.html { render 'charts/show' }
+    #     format.js
+    #   end
+    end
+  end
+
+  def edit
+    @chart = @dataset.chart
   end
 
   def update
-    @dataset.update(dataset_params)
+    if @dataset.update(dataset_params)
+      respond_to do |format|
+        format.html { redirect_to edit_chart_path(@chart)}
+        format.js # <-- will render `app/views/datasets/create.js.erb`
+      end
+    # else ?
+    end
   end
 
   def destroy
     @chart = @dataset.chart
     @dataset.destroy
-    redirect_to edit_chart_path(@chart)
   end
 
   private
@@ -30,5 +47,4 @@ class DatasetsController < ApplicationController
   def dataset_params
     params.require(:dataset).permit(:label, :value)
   end
-
 end

@@ -9,17 +9,23 @@ class ChartsController < ApplicationController
     @charts = Chart.where(user: @user)
   end
 
-  # def new
-  #   @chart = Chart.new
-  # end
-
   def create
     @chart = Chart.new
     @chart.user = current_or_guest_user
     @chart.save
-    create_3_default_datasets
-    # something will need to be added to save data_sets as well
-    redirect_to edit_chart_path(@chart)
+    if @chart.save
+      create_3_default_datasets
+      respond_to do |format|
+        format.html { redirect_to edit_chart_path(@chart)}
+        format.js # <-- will render `app/views/charts/create.js.erb`
+      end
+    # else
+    #   respond_to do |format|
+    #     format.html { render 'charts/show' }
+    #     format.js
+    #   end
+    end
+    # redirect_to edit_chart_path(@chart)
   end
 
   def edit
@@ -27,8 +33,13 @@ class ChartsController < ApplicationController
   end
 
   def update
-    @chart.update(chart_params)
-    # something will need to be added to save data_sets as well
+    if @chart.update(chart_params)
+      respond_to do |format|
+        format.html { redirect_to edit_chart_path(@chart)}
+        format.js # <-- will render `app/views/charts/create.js.erb`
+      end
+    # else ?
+    end
   end
 
   def destroy
@@ -57,5 +68,4 @@ class ChartsController < ApplicationController
   def chart_params
     params.require(:chart).permit(:title, :subtitle, :notes, :color, :font_size)
   end
-
 end

@@ -1,4 +1,4 @@
-<%= simple_form_for(@chart) do |f| %>
+<%= simple_form_for(@chart, remote: true) do |f| %>
   <%= f.input :notes %>
   <%= f.button :submit %>
 <% end %>

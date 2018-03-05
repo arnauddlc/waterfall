@@ -1,0 +1,13 @@
+<%= simple_form_for([chart, dataset], remote: true, html: { class: "table-row", 'data-dataset-id' => dataset.id })  do |f| %>
+  <div class="table-cell">
+    <%= f.input :label, placeholder: 'Label', label: false %>
+  </div>
+  <div class="table-cell">
+    <%= f.input :value, placeholder: 'Value', label: false %>
+  </div>
+  <div class="table-cell-btn edit-delete">
+    <%= f.button :button do %>
+      <i class="fas fa-plus-circle"></i>
+    <% end %>
+  </div>
+<% end %>

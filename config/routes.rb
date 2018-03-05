@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 	root to: 'pages#home'
 
   resources :charts, except: [:new, :show] do
-    resources :datasets, only: :create
+    resources :datasets, only: [:create, :update]
   end
 
-  resources :datasets, only: [:update, :destroy]
+  resources :datasets, only: [:edit, :destroy]
 end
