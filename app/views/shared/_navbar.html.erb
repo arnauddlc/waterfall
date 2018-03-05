@@ -17,7 +17,8 @@
       <!-- Links when logged in -->
 
       <% if show_export? %>
-        <%= link_to "EXPORT", root_path, class: "navbar-button-green" %>
+        <p><em>Placeholder for save messages</em></p>
+        <button class="navbar-button-green" id="export_button">EXPORT</button>
       <% end %>
 
       <!-- Avatar with dropdown menu -->
@@ -49,7 +50,8 @@
     <% else %>
 
       <% if show_export? %>
-        <%= link_to "You need to login to export this chart", new_user_session_path, class: "navbar-button-green" %>
+        <p><em>Placeholder for save messages</em></p>
+        <%= link_to "EXPORT", new_user_session_path, class: "navbar-button-green" %>
       <% end %>
       <!-- Login link (when logged out) -->
       <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-waterfall-item navbar-waterfall-link" %>
