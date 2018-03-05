@@ -1,0 +1,9 @@
+newTitles = "<%= j render 'charts/title_section', chart: @chart %>";
+titles = document.getElementById('chart-titles')
+titles.innerHTML = newTitles;
+
+inputBox = document.getElementById('chart_title');
+inputBox.value = "";
+
+inputBoxTwo = document.getElementById('chart_subtitle');
+inputBoxTwo.value = "";

@@ -9,8 +9,7 @@
 "$medium-dark-gray: #1A1A1A",
 "$dark-gray: #141414"] %>
 
-
-<%= simple_form_for(@chart) do |f| %>
+<%= simple_form_for(@chart, remote: true) do |f| %>
   <%= f.input :font_size, collection: [ 8, 12, 16, 24, 32] %>
   <%= f.input :color, collection: colors %>
   <%= f.button :submit %>
