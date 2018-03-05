@@ -43,6 +43,10 @@
 
 </style>
 
+  <% def show_export? %>
+    <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
+  <% end %>
+
 <script>
 
 var datasource = <%= chart.datasets.to_json.html_safe %>;
