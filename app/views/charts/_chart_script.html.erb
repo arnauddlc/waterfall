@@ -47,8 +47,14 @@
 
 var datasource = <%= chart.datasets.to_json.html_safe %>;
 
+<% if show_export? %>
+  var marginTop = 70;
+<% else %>
+  var marginTop = 40;
+<% end %>
+
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: 70, right: 10, bottom: 40, left: 50},
+    margin = {top: marginTop , right: 10, bottom: 40, left: 50},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -81,7 +87,7 @@ var g = svg.append("g")
       .attr("y", 0 - (margin.top / 2))
       .attr("text-anchor", "middle")
       .style("font-size", "30px")
-      .text("<%= chart.title %>");
+      .text("<%= chart.title if show_export? %>");
 
     g.selectAll(".bar")
       .data(datasource)
