@@ -27,11 +27,11 @@
           </div>
 
           <div id="design" class="tab-pane fade">
-            <%= render 'design_section' %>
+            <%= render 'charts/design_section' %>
           </div>
 
           <div id="notes" class="tab-pane fade">
-            <%= render 'notes_section' %>
+            <%= render 'charts/notes_section' %>
           </div>
         </div>
       </div>
@@ -41,14 +41,14 @@
           <svg width="450" height="400" id="chart-d3" data-title="<%= @chart.title %>"></svg>
         </div>
         <div id="chart-titles">
-          <%= render 'title_section' %>
+          <%= render 'charts/title_section' %>
         </div>
         <div id="titles-form" class="hidden">
-          <%= render 'form' %>
+          <%= render 'charts/form' %>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<%= render 'chart_script', chart: @chart%>
+<%= render 'charts/chart_script', chart: @chart%>

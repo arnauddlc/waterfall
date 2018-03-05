@@ -14,3 +14,5 @@ function addDataset(datasetHTML) {
   addDataset('<%= j render "datasets/show", dataset: @dataset %>');
   refreshForm('<%= j render "datasets/form", chart: @chart, dataset: Dataset.new %>');
 <% end %>
+
+location.reload();
