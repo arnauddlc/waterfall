@@ -30,6 +30,10 @@
 	  opacity: 0.8;
 	}
 
+  .axis--x .tick line{
+      visibility:hidden;
+    }
+
 	.axis--y {
 	  display: none;
 	}
@@ -41,7 +45,7 @@
 var datasource = <%= chart.datasets.to_json.html_safe %>;
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
+    margin = {top: 50, right: 40, bottom: 40, left: 40},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -51,32 +55,53 @@ var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-x.domain(datasource.map(function(d) { return d.label; }));
-y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
+    x.domain(datasource.map(function(d) { return d.label; }));
+    y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
 
-g.append("g")
-    .attr("class", "axis axis--x")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
+    g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSizeOuter(0));
 
-g.append("g")
-    .attr("class", "axis axis--y")
-    .call(d3.axisLeft(y).ticks(10))
-  .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", "0.71em")
-    .attr("text-anchor", "end")
-    .text("value");
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10))
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("value");
 
-g.selectAll(".bar")
-  .data(datasource)
-  .enter().append("rect")
-    .attr("class", "bar")
-    .attr("id", "bar-chart-<%= chart.id %>")
-    .attr("x", function(d) { return x(d.label); })
-    .attr("y", function(d) { return y(d.value); })
-    .attr("width", x.bandwidth())
-    .attr("height", function(d) { return height - y(d.value); });
+    g.append("text")
+      .attr("x", (width / 2))
+      .attr("y", 0 - (margin.top / 3))
+      .attr("text-anchor", "middle")
+      .style("font-size", "30px")
+      .text("<%= chart.title %>");
+
+    g.selectAll(".bar")
+      .data(datasource)
+      .enter().append("rect")
+        .attr("class", "bar")
+        .attr("id", "bar-chart-<%= chart.id %>")
+        .attr("x", function(d) { return x(d.label); })
+        .attr("y", function(d) { return y(d.value); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d) { return height - y(d.value); });
+
+    bar.append("text")
+      .attr("class", "value")
+      .attr("y", barHeight / 2)
+      .attr("dx", -valueMargin + labelWidth) //margin right
+      .attr("dy", ".35em") //vertical align middle
+      .attr("text-anchor", "end")
+      .text(function(d){
+          return (d.value+"%");
+      })
+      .attr("x", function(d){
+          var width = this.getBBox().width;
+          return Math.max(width + valueMargin, scale(d.value));
+      });
 
 </script>
