@@ -1,16 +1,12 @@
 
 .footer-container {
 	opacity: 0.2;
-	width: 97%;
+	width: 100%;
 	border-top: 1px solid $dark-gray;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 1px 0;
-  padding-left: 15px;
-  padding-right: 15px;
-	position: absolute;
-	bottom: 0px;
+	padding: 1px 15px 0 15px;
   color: $dark-gray !important;
 
 	p {
@@ -24,11 +20,22 @@
     text-decoration: none;
     font-size: 12px;
     padding: 0px 10px;
+    
     &:hover {
       opacity: 1;
     }
   }
 }
+
+.footer-space {
+  width: 100%;
+  margin: 0;
+  padding: 0 15px 10px 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
 .index-footer {
   padding-top: 75px;
   position: sticky;
