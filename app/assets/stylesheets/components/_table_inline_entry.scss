@@ -1,5 +1,4 @@
-.table-entry {
-  margin-top: 10px;
+.table-inline-entry {
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -15,12 +14,12 @@
     color: $green;
     }
   }
+  .right-form {
+    width: 44%;
+  }
   .left-form {
     width: 44%;
     margin-right: 1px;
-  }
-  .right-form {
-    width: 44%;
   }
   .submit-form {
     width: 12%;
