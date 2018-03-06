@@ -86,13 +86,47 @@
   padding: 0 15px 0 1px;
 }
 
-// Media queries
-@media (max-width: 1250px) {
-  /* For a screen < 720px, this CSS will be read */
+// @media (max-width: 960px) {
+//   /* For a screen < 960px, this CSS will be read */
+//   .container {
+//     width: 700px;
+//   }
+// }
+
+@media (max-width: 770px) {
+  /* For a screen < 760px, this CSS will be read */
   .main-container {
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
   }
+  .half-half {
+    background: none;
+  }
+  .chart-area {
+    background: white;
+  }
+  .display-chart {
+    margin-bottom: 30px;
+    .all-titles {
+      text-align: left;
+    }
+  }
 }
+
+// @media (max-width: 540px) {
+//   /* For a screen < 540px, this CSS will be read */
+//   .main-container {
+//     display: flex;
+//     flex-direction: column-reverse;
+//     justify-content: center;
+//     align-items: center;
+//   }
+//   .half-half {
+//   background: linear-gradient(to bottom, $light-gray 50%, white 50%);
+//   padding: 0px 50px;
+//   }
+// }
+
+
