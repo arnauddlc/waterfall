@@ -1,14 +1,13 @@
 <div class="all-titles">
-<div id="chart-title"><h4><%= @chart.title %></h4></div>
-<div id="chart-subtitle"><h5><%= @chart.subtitle %></h5></div>
-  <%= image_tag "pencil.svg", id: "pencil-edit" %>
+  <div id="chart-title">
+    <h4><%= @chart.title %></h4>
+  </div>
+  <div id="chart-subtitle">
+    <h5><%= @chart.subtitle %>
+      <i class="fa fa-pencil" aria-hidden="true" id="pencil-edit"></i>
+  </h5>
+  </div>
 </div>
-
-<style>
-  .hidden {
-    display: none;
-  }
-</style>
 
 <%= content_for(:after_js) do %>
   <script>

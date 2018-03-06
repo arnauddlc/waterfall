@@ -20,7 +20,6 @@
             <i class="fa fa-trash" data-toggle="modal" data-target="#myModal-<%= chart.id %>" data-id-chart="<%= chart.id %>"></i>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -37,11 +36,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
             <%= link_to chart_path(chart), method: :delete do  %>
               <button type="button" class="btn btn-primary">Confirm</button>
             <% end %>
-
           </div>
         </div>
       </div>
@@ -50,8 +47,4 @@
   <% end %>
 </div>
 
-
 <!-- Button trigger modal -->
-
-
-
