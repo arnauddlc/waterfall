@@ -12,6 +12,7 @@
   flex-direction: column;
   .all-titles {
     padding-left: 0;
+    text-align: center;
     .hidden {
       display: none;
     }
@@ -69,9 +70,6 @@
 }
 
 .chart-area {
-  background-color: white;
-  border-radius: 2px;
-  padding: 2px;
   text-align: center;
 }
 
