@@ -7,6 +7,8 @@ class DatasetsController < ApplicationController
     @dataset = Dataset.new(dataset_params)
     @dataset.chart = @chart
     if @dataset.save
+      @chart.updated_at = @dataset.updated_at
+      @chart.save
       respond_to do |format|
         format.html { redirect_to edit_chart_path(@chart)}
         format.js # <-- will render `app/views/datasets/create.js.erb`
@@ -25,6 +27,9 @@ class DatasetsController < ApplicationController
 
   def update
     if @dataset.update(dataset_params)
+      @chart = @dataset.chart
+      @chart.updated_at = @dataset.updated_at
+      @chart.save
       respond_to do |format|
         format.html { redirect_to edit_chart_path(@chart)}
         format.js # <-- will render `app/views/datasets/create.js.erb`
