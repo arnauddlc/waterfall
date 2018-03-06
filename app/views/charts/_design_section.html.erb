@@ -1,4 +1,4 @@
-<% colors = [ "$yellow: #FFDB29",
+<!-- < colors = [ "$yellow: #FFDB29",
 "$orange: #FD7366",
 "$red: #F04F2B",
 "$blue: #30C2FF",
@@ -7,7 +7,20 @@
 "$gray: #000000",
 "$light-gray: #F4F4F4",
 "$medium-dark-gray: #1A1A1A",
-"$dark-gray: #141414"] %>
+"$dark-gray: #141414"] %> -->
+
+<% colors = [
+	"$yellow",
+	"$orange",
+	"$red",
+	"$blue",
+	"$purple",
+	"$green",
+	"$gray",
+	"$light-gray",
+	"$medium-dark-gray",
+	"$dark-gray"] %>
+
 
 <%= simple_form_for(@chart, remote: true) do |f| %>
   <%= f.input :font_size, collection: [ 8, 12, 16, 24, 32] %>
