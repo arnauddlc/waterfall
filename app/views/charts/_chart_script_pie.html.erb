@@ -47,7 +47,7 @@ var svg = d3.select("#chart-<%= chart.id %> > svg"),
     margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
     width = +svg.attr("width"),
     height = +svg.attr("height"),
-    radius = Math.min(width, height) / 2,
+    radius = Math.min(width, height) / 2.8,
     g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // define colors
@@ -68,13 +68,13 @@ var label = d3.arc()
     .outerRadius(radius - 40)
     .innerRadius(radius - 40);
 
-// insert data to the arc
+// append g elements to arc
 var arc = g.selectAll(".arc")
   .data(pie(data))
   .enter().append("g")
   .attr("class", "arc");
 
-// call color
+// append the path to the arc
 arc.append("path")
   .attr("d", path)
   .attr("fill", function(d) { return color(d.data.label); });
@@ -87,8 +87,8 @@ arc.append("text")
 
 // add title
 arc.append("text")
-  .attr("x", (width / 2))
-  .attr("y", 0 - (margin.top / 2))
+  .attr("x", margin.left)
+  .attr("y", 0 - (margin.top * 2.4))
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use + 6 %>px")
@@ -96,8 +96,8 @@ arc.append("text")
 
 // add subtitle
 arc.append("text")
-  .attr("x", (width / 2))
-  .attr("y", 0 - (margin.top / 2) + 25)
+  .attr("x", margin.left)
+  .attr("y", 0 - (margin.top * 2.1))
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use %>px")
