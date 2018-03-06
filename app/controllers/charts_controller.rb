@@ -16,12 +16,21 @@ class ChartsController < ApplicationController
   def create
     @chart = Chart.new
     @chart.user = current_or_guest_user
+    @chart.chart_type = params[:type]
     # @chart.save
     if @chart.save
-      create_3_default_datasets
-      respond_to do |format|
-        format.html { redirect_to edit_chart_path(@chart)}
-        format.js # <-- will render `app/views/charts/create.js.erb`
+      if @chart.chart_type = "waterfall"
+        create_4_default_waterfall_datasets
+        respond_to do |format|
+          format.html { redirect_to edit_wf_chart_path(@chart)}
+          format.js # <-- will render `app/views/charts/create.js.erb`
+        end
+      else
+        create_3_default_datasets
+        respond_to do |format|
+          format.html { redirect_to edit_chart_path(@chart)}
+          format.js # <-- will render `app/views/charts/create.js.erb`
+        end
       end
     # else
     #   respond_to do |format|

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :datasets, only: [:create, :update]
   end
 
-  edit '/charts/:id/wf', to: "charts#editwaterfall", as: :edit_waterfall
+  get '/charts/:id/edit/wf', to: "charts#edit", as: :edit_wf_chart
 
   resources :datasets, only: [:edit, :destroy]
 end
