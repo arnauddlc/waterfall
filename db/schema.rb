@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306075338) do
+ActiveRecord::Schema.define(version: 20180306073813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "charts", force: :cascade do |t|
     t.string "title", default: "Chart Title"
-    t.string "subtitle", default: "Chart Subtitle"
+    t.string "subtitle", default: "chart subtitle"
     t.text "notes"
     t.integer "font_size", default: 12
     t.string "color", default: "$green: #3EC28F"
