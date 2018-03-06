@@ -1,5 +1,5 @@
 <div class="row">
-  <% @charts.each do |chart| %>
+  <% @charts.order(updated_at: :desc).each do |chart| %>
 
     <div class="col-xs-12 col-sm-4 col-md-3">
       <div class="card">

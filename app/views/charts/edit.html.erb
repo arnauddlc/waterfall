@@ -19,7 +19,7 @@
                   <p>VALUE</p>
                 </div>
               </div>
-              <% @chart.datasets.each do |dataset| %>
+              <% @chart.datasets.order(:created_at).each do |dataset| %>
                 <%= render 'datasets/show', dataset: dataset %>
               <% end %>
             </div>
