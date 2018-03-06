@@ -54,7 +54,7 @@
 
 <script>
 
-var datasource = <%= chart.datasets.to_json.html_safe %>;
+var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 <% if show_export? %>
   var marginTop = 70;
