@@ -19,7 +19,7 @@
                   <p>VALUE</p>
                 </div>
               </div>
-              <% @chart.datasets.each do |dataset| %>
+              <% @chart.datasets.order(:created_at).each do |dataset| %>
                 <%= render 'datasets/show', dataset: dataset %>
               <% end %>
             </div>
@@ -37,16 +37,19 @@
       </div>
 
       <div class="col-xs-6">
-        <div class="chart-area" id="chart-<%= @chart.id %>">
-          <svg width="450" height="400" id="chart-d3" data-title="<%= @chart.title %>"></svg>
-        </div>
-        <div id="chart-titles">
-          <%= render 'charts/title_section' %>
-        </div>
-        <div id="titles-form" class="hidden">
-          <%= render 'charts/form' %>
+        <div class="display-chart">
+          <div class="chart-area" id="chart-<%= @chart.id %>">
+            <svg width="450" height="400" id="chart-d3" data-title="<%= @chart.title %>"></svg>
+          </div>
+          <div id="chart-titles">
+            <%= render 'charts/title_section' %>
+          </div>
+          <div id="titles-form" class="hidden">
+            <%= render 'charts/form' %>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

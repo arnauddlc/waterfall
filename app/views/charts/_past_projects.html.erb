@@ -1,5 +1,5 @@
 <div class="row">
-  <% @charts.each do |chart| %>
+  <% @charts.order(updated_at: :desc).each do |chart| %>
 
     <div class="col-xs-12 col-sm-4 col-md-3">
       <div class="card">
@@ -17,15 +17,14 @@
             <%= link_to chart.title, edit_chart_path(chart), class:"chart-title" %>
           </div>
           <div class="card-delete">
-            <i class="fa fa-trash" data-toggle="modal" data-target="#myModal" data-id-chart="<%= chart.id %>"></i>
+            <i class="fa fa-trash" data-toggle="modal" data-target="#myModal-<%= chart.id %>" data-id-chart="<%= chart.id %>"></i>
           </div>
         </div>
-
       </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal-<%= chart.id %>" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -37,11 +36,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
             <%= link_to chart_path(chart), method: :delete do  %>
               <button type="button" class="btn btn-primary">Confirm</button>
             <% end %>
-
           </div>
         </div>
       </div>
@@ -50,8 +47,4 @@
   <% end %>
 </div>
 
-
 <!-- Button trigger modal -->
-
-
-

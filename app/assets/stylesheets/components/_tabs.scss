@@ -1,0 +1,7 @@
+.nav-tabs > li > a {
+  color: $medium-dark-gray;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  border-top: 2px solid $green;
+  color: $dark-gray;
+}

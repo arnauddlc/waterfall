@@ -1,6 +1,5 @@
-
 .footer-container {
-	opacity: 0.2;
+	opacity: 0.4;
 	width: 100%;
 	border-top: 1px solid $dark-gray;
 	display: flex;
@@ -8,25 +7,21 @@
 	justify-content: space-between;
 	padding: 1px 15px 0 15px;
   color: $dark-gray !important;
-
 	p {
     margin: 0;
 		font-size: 12px;
 	}
-
   a {
     color: white;
     opacity: 0.5;
     text-decoration: none;
     font-size: 12px;
     padding: 0px 10px;
-    
     &:hover {
       opacity: 1;
     }
   }
 }
-
 .footer-space {
   width: 100%;
   margin: 0;
@@ -35,11 +30,10 @@
   bottom: 0;
   left: 0;
 }
-
 .index-footer {
   padding-top: 75px;
   position: sticky;
-
 }
-
-
+.fa.fa-heart {
+  color: black;
+}
