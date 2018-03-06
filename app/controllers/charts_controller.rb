@@ -5,6 +5,9 @@ class ChartsController < ApplicationController
   helper_method :current_or_guest_user
   helper_method :font_use
 
+  def waterfallplayground
+  end
+
   def index
     @user = current_user
     @charts = Chart.where(user: @user)

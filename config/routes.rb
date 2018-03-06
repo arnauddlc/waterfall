@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
 	root to: 'pages#home'
 
+  get '/waterfallplayground', to: "charts#waterfallplayground"
+
   resources :charts, except: [:new, :show] do
     resources :datasets, only: [:create, :update]
   end
