@@ -1,7 +1,7 @@
-<div class="main-container">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-6">
+<div class="">
+  <div class="container ">
+    <div class="row main-container">
+      <div class="col-xs-12 col-md-12 col-lg-6">
         <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#data">DATA</a></li>
           <li><a data-toggle="tab" href="#design">DESIGN</a></li>
@@ -36,11 +36,17 @@
         </div>
       </div>
 
+<<<<<<< HEAD
       <div class="col-xs-6">
 
         <div class="display-chart">
 
           <div id="chart-<%= @chart.id %>">
+=======
+      <div class="col-xs-12 col-md-6">
+        <div class="display-chart">
+          <div class="chart-area" id="chart-<%= @chart.id %>">
+>>>>>>> 60b9c494e2c9fe0bbcc996a032a1025f961edf4e
             <svg width="450" height="400" id="chart-d3" data-title="<%= @chart.title %>"></svg>
           </div>
 
@@ -54,7 +60,6 @@
 
         </div>
       </div>
-
     </div>
   </div>
 </div>

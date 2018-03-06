@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20180306075338) do
 
   create_table "charts", force: :cascade do |t|
     t.string "title", default: "Chart Title"
-    t.string "subtitle", default: "chart subtitle"
+    t.string "subtitle", default: "Chart Subtitle"
     t.text "notes"
     t.integer "font_size", default: 12
     t.string "color", default: "$green: #3EC28F"
