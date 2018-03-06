@@ -37,16 +37,21 @@
       </div>
 
       <div class="col-xs-6">
+
         <div class="display-chart">
+
           <div id="chart-<%= @chart.id %>">
             <svg width="450" height="400" id="chart-d3" data-title="<%= @chart.title %>"></svg>
           </div>
+
           <div id="chart-titles">
             <%= render 'charts/title_section' %>
           </div>
+
           <div id="titles-form" class="hidden">
             <%= render 'charts/form' %>
           </div>
+
         </div>
       </div>
 
@@ -54,4 +59,4 @@
   </div>
 </div>
 
-<%= render 'charts/chart_script', chart: @chart%>
+<%= render "chart_script_#{@chart.chart_type}", chart: @chart%>
