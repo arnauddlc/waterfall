@@ -17,7 +17,7 @@
             <%= link_to chart.title, edit_chart_path(chart), class:"chart-title" %>
           </div>
           <div class="card-delete">
-            <i class="fa fa-trash" data-toggle="modal" data-target="#myModal" data-id-chart="<%= chart.id %>"></i>
+            <i class="fa fa-trash" data-toggle="modal" data-target="#myModal-<%= chart.id %>" data-id-chart="<%= chart.id %>"></i>
           </div>
         </div>
 
@@ -25,7 +25,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal-<%= chart.id %>" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
