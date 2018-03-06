@@ -82,7 +82,6 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
 
     margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
-
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
 
