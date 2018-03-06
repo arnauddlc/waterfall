@@ -16,7 +16,7 @@ class ChartsController < ApplicationController
   def create
     @chart = Chart.new
     @chart.user = current_or_guest_user
-    @chart.save
+    # @chart.save
     if @chart.save
       create_3_default_datasets
       respond_to do |format|
@@ -30,6 +30,16 @@ class ChartsController < ApplicationController
     #   end
     end
     # redirect_to edit_chart_path(@chart)
+  end
+
+  def createwaterfall
+    @chart = Chart.new
+    @chart.user = current_or_guest_user
+    @chart.chart_type = "waterfall"
+    if @chart.save
+      create_4_default_waterfall_datasets
+      redirect_to waterfallplayground_path(@chart)
+    end
   end
 
   def edit
@@ -69,6 +79,20 @@ class ChartsController < ApplicationController
       i += 1
     end
   end
+
+  def create_4_default_waterfall_datasets
+    labels = ["End of Q1", "Income", "Expenses", "End of Q2"]
+    values = [10 , 2 ,  3  , 9 ]
+    serietypes = ["basline", "plus", "less", "baseline"]
+    offsets = [ 0 , 10 , 9 , 0 ]
+    i=0
+    4.times do 
+      new_dataset = Dataset.new(label: labels[i], value: values[i], serietype: serietypes[i], offset: offsets[i])
+      new_dataset.chart = @chart
+      new_dataset.savei += 1
+    end
+  end
+
 
   def set_chart
     @chart = Chart.find(params[:id])

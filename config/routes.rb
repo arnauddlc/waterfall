@@ -14,5 +14,7 @@ Rails.application.routes.draw do
     resources :datasets, only: [:create, :update]
   end
 
+  # post '/charts', to: "charts#createwaterfall", as: :create_waterfall
+
   resources :datasets, only: [:edit, :destroy]
 end
