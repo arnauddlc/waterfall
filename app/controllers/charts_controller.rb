@@ -17,10 +17,9 @@ class ChartsController < ApplicationController
     @chart = Chart.new
     @chart.chart_type = params[:type]
     @chart.user = current_or_guest_user
-    @chart.chart_type = params[:type]
     # @chart.save
     if @chart.save
-      if @chart.chart_type = "waterfall"
+      if @chart.chart_type == "waterfall"
         create_4_default_waterfall_datasets
         respond_to do |format|
           format.html { redirect_to edit_wf_chart_path(@chart)}
@@ -53,7 +52,7 @@ class ChartsController < ApplicationController
   def update
     if @chart.update(chart_params)
       respond_to do |format|
-        format.html { redirect_to edit_wf_path(@chart)}
+        format.html { redirect_to edit_chart_path(@chart)}
         format.js # <-- will render `app/views/charts/create.js.erb`
       end
     # else ?
