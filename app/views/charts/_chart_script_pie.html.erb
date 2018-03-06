@@ -1,7 +1,7 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
-var data = <%= @chart.datasets.to_json.html_safe %>;
+var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
     width = +svg.attr("width"),
