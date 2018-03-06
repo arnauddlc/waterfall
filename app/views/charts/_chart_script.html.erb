@@ -63,10 +63,6 @@
 
 </style>
 
-  <% def show_export? %>
-    <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
-  <% end %>
-
 <script>
 
 var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
