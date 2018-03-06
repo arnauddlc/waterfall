@@ -58,15 +58,15 @@ datasets = [dataset1, dataset2, dataset3, dataset4, dataset5, dataset6] %>
 	  fill: #3EC28F;
 	}
 
-	.baseline {
+	.bar-baseline {
 		fill: #1A1A1A;
 	}
 
-	.plus {
+	.bar-plus {
 		fill: green;
 	}
 
-	.less {
+	.bar-less {
 		fill : red;
 	}
 
@@ -91,6 +91,11 @@ datasets = [dataset1, dataset2, dataset3, dataset4, dataset5, dataset6] %>
     font: <%= font_use %>px;
     font-weight: 400;
     text-anchor: middle;
+  }
+
+  .value-baseline {
+  	fill: black;
+  	font-weight: 800;
   }
 
 </style>
@@ -169,7 +174,7 @@ var g = svg.append("g")
         .attr("x", function(d) { return x(d.label); })
         .attr("y", function(d) { return (y(d.value + d.offset)); })
         .attr("height", function(d) { return height - y(d.value); })
-        .attr("class", function(d) {return ("bar " + d.type); })
+        .attr("class", function(d) {return ("bar bar-" + d.type); })
         .attr("id", "bar-chart-waterfall");
 
     //add labels    
@@ -177,11 +182,16 @@ var g = svg.append("g")
       .data(datasource)
       .enter().append("text")
       .attr("font-family", "Arial")
-      .attr("class","value")
+      .attr("class", function(d) { return "value value-" + d.type })
       .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
-      .attr("y", function(d) { return y(d.value + d.offset) + 1; })
+      .attr("y", function(d) { 
+      	if (d.type === "less") { return y(d.offset) - (16*3/2); }
+      	else if (d.type === "baseline") { return y(d.value) - (16*3/2)}
+      	else { return y(d.value + d.offset) + 1;} })
       .attr("dy", "16px")
       .style("font-size", "16px")
-      .text(function(d) { return d.value; });
+      .text(function(d) { 
+      	if (d.type === "less") { return "- " + d.value;}
+      	else { return d.value; } });
 
 </script>
