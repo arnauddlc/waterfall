@@ -1,7 +1,4 @@
 .table-inline-entry {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
   .btn {
     padding: 0;
     margin-top: 7px;
@@ -14,15 +11,7 @@
     color: $green;
     }
   }
-  .right-form {
-    width: 44%;
-  }
-  .left-form {
-    width: 44%;
-    margin-right: 1px;
-  }
-  .submit-form {
-    width: 12%;
-    text-align: center;
+  .form-group {
+    margin-bottom: 0;
   }
 }
