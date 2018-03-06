@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20180306101706) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "chart_type"
     t.index ["user_id"], name: "index_charts_on_user_id"
   end
 
