@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  helper_method :show_export?
 
   # this is additional code to allow only admin to admin section of the website
   # before_action :authenticate_admin!, if: :rails_admin_url
@@ -21,6 +22,10 @@ class ApplicationController < ActionController::Base
     else
       guest_user
     end
+  end
+
+  def show_export?
+    ((params[:action] == 'edit') && (controller_name == "charts"))
   end
 
   # find guest_user object associated with the current session,
