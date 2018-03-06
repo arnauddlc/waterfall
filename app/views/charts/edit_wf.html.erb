@@ -1,0 +1,9 @@
+<h1>Hello Waterfall!</h1>
+
+<div id="chart-<%= @chart.id %>">
+  <svg id="chart-d3" data-title="<%= @chart.title %>" width="1000" height="700"></svg>
+</div>
+<%= render 'charts/chart_wf_script', chart: @chart%>
+
+
+

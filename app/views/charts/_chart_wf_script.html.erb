@@ -1,22 +1,11 @@
-<h1>Hello Waterfall!</h1>
-
-
-<% dataset1 = {label: "YE 2017", value: 100, type: "baseline", offset: 0}
-dataset2 = {label: "Income", value: 20, type: "plus", offset: 100}
-dataset3 = {label: "Expenses", value: 30, type: "less", offset: 100 + 20 - 30}
-dataset4 = {label: "YE 2018 without change rate impact", value: 90, type: "baseline", offset: 0}
-dataset5 = {label: "Change rate", value: 10, type: "less", offset: 80}
-dataset6 = {label: "YE 2018", value: 80, type: "baseline", offset: 0}
+<% dataset1 = {label: "YE 2017", value: 100, serietype: "baseline", offset: 0}
+dataset2 = {label: "Income", value: 20, serietype: "plus", offset: 100}
+dataset3 = {label: "Expenses", value: 30, serietype: "less", offset: 100 + 20 - 30}
+dataset4 = {label: "YE 2018 without change rate impact", value: 90, serietype: "baseline", offset: 0}
+dataset5 = {label: "Change rate", value: 10, serietype: "less", offset: 80}
+dataset6 = {label: "YE 2018", value: 80, serietype: "baseline", offset: 0}
 
 datasets = [dataset1, dataset2, dataset3, dataset4, dataset5, dataset6] %>
-
-
-<p><%= datasets %></p>
-
-<svg id="waterfall" width="1000" height="700"></svg>
-
-
-
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -58,15 +47,15 @@ datasets = [dataset1, dataset2, dataset3, dataset4, dataset5, dataset6] %>
 	  fill: #3EC28F;
 	}
 
-	.bar-baseline {
+	#bar-baseline-chart-<%= chart.id %> {
 		fill: #1A1A1A;
 	}
 
-	.bar-plus {
+	#bar-plus-chart-<%= chart.id %> {
 		fill: green;
 	}
 
-	.bar-less {
+	#bar-less-chart-<%= chart.id %> {
 		fill : red;
 	}
 
@@ -102,18 +91,18 @@ datasets = [dataset1, dataset2, dataset3, dataset4, dataset5, dataset6] %>
 
 <script>
 
-var datasource = <%= datasets.to_json.html_safe %>
+var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>
 
 <% if show_export? %>
-  var marginTop = 120;
-  var marginBottom = 120;
+  var marginTop = 70;
+  var marginBottom = 70;
 <% else %>
-  var marginTop = 120;
-  var marginBottom = 120;
+  var marginTop = 40;
+  var marginBottom = 40;
 <% end %>
 
 
-var svg = d3.select("svg"),
+var svg = d3.select("#chart-<%= chart.id %> > svg"),
                     
     margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
 
@@ -143,7 +132,7 @@ var g = svg.append("g")
         .attr("font-family", "Arial")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
-        .attr("font-size", "16px")
+        .attr("font-size", "<%= font_use %>px")
         .attr("text-anchor", "end")
         .text("value");
 
@@ -153,8 +142,8 @@ var g = svg.append("g")
       .attr("y", 0 - (margin.top / 2))
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
-      .style("font-size", "<%= 16 + 6 %>px")
-      .text("My bank balance");
+      .style("font-size", "<%= font_use + 6 %>px")
+      .text("<%= chart.title if show_export? %>");
 
     // add subtitle
     g.append("text")
@@ -162,8 +151,8 @@ var g = svg.append("g")
       .attr("y", 0 - (margin.top / 2) + 25)
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
-      .style("font-size", "16px")
-      .html("in millions of rupiahs");
+      .style("font-size", "<%= font_use %>px")
+      .text("<%= chart.subtitle if show_export? %>");
 
     // add bars
     g.selectAll(".bar")
@@ -174,24 +163,24 @@ var g = svg.append("g")
         .attr("x", function(d) { return x(d.label); })
         .attr("y", function(d) { return (y(d.value + d.offset)); })
         .attr("height", function(d) { return height - y(d.value); })
-        .attr("class", function(d) {return ("bar bar-" + d.type); })
-        .attr("id", "bar-chart-waterfall");
+        .attr("class", function(d) {return ("bar bar-" + d.serietype); })
+        .attr("id", function(d) { return ("bar-" + d.serietype +"-chart-<%= chart.id %>"); });
 
     //add labels    
     g.selectAll(".text")
       .data(datasource)
       .enter().append("text")
       .attr("font-family", "Arial")
-      .attr("class", function(d) { return "value value-" + d.type })
+      .attr("class", function(d) { return "value value-" + d.serietype })
       .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
       .attr("y", function(d) { 
-      	if (d.type === "less") { return y(d.offset) - (16*3/2); }
-      	else if (d.type === "baseline") { return y(d.value) - (16*3/2)}
+      	if (d.serietype === "less") { return y(d.offset) - (<%= font_use %> *3/2); }
+      	else if (d.serietype === "baseline") { return y(d.value) - ( <%= font_use %> *3/2)}
       	else { return y(d.value + d.offset) + 1;} })
-      .attr("dy", "16px")
-      .style("font-size", "16px")
+      .attr("dy", "<%= font_use %>px")
+      .style("font-size", "<%= font_use %>px")
       .text(function(d) { 
-      	if (d.type === "less") { return "- " + d.value;}
+      	if (d.serietype === "less") { return "- " + d.value;}
       	else { return d.value; } });
-
+      
 </script>

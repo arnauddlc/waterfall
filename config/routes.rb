@@ -8,13 +8,11 @@ Rails.application.routes.draw do
 
 	root to: 'pages#home'
 
-  get '/waterfallplayground', to: "charts#waterfallplayground"
-
   resources :charts, except: [:new, :show] do
     resources :datasets, only: [:create, :update]
   end
 
-  get '/charts/:id/edit/wf', to: "charts#edit", as: :edit_wf_chart
+  get '/charts/edit_wf/:id', to: "charts#edit_wf", as: :edit_wf_chart
 
   resources :datasets, only: [:edit, :destroy]
 end

@@ -1,6 +1,6 @@
 class ChartsController < ApplicationController
-  before_action :set_chart, only: [:edit, :update, :destroy]
-  skip_before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update]
+  before_action :set_chart, only: [:edit, :edit_wf, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index, :new, :create, :edit, :edit_wf, :update]
   # helper method to handle guest or logged in users
   helper_method :current_or_guest_user
   helper_method :font_use
@@ -41,28 +41,18 @@ class ChartsController < ApplicationController
     # redirect_to edit_chart_path(@chart)
   end
 
-  def createwaterfall
-    @chart = Chart.new
-    @chart.user = current_or_guest_user
-    @chart.chart_type = "waterfall"
-    if @chart.save
-      create_4_default_waterfall_datasets
-      redirect_to edit_waterfall_path(@chart)
-    end
-  end
-
   def edit
     @dataset = Dataset.new
   end
 
-  def edit_waterfall
-    @dataset = Dataset.new_dataset
+  def edit_wf
+    @dataset = Dataset.new
   end
 
   def update
     if @chart.update(chart_params)
       respond_to do |format|
-        format.html { redirect_to edit_chart_path(@chart)}
+        format.html { redirect_to edit_wf_path(@chart)}
         format.js # <-- will render `app/views/charts/create.js.erb`
       end
     # else ?
@@ -96,13 +86,14 @@ class ChartsController < ApplicationController
   def create_4_default_waterfall_datasets
     labels = ["End of Q1", "Income", "Expenses", "End of Q2"]
     values = [10 , 2 ,  3  , 9 ]
-    serietypes = ["basline", "plus", "less", "baseline"]
+    serietypes = ["baseline", "plus", "less", "baseline"]
     offsets = [ 0 , 10 , 9 , 0 ]
     i=0
     4.times do 
       new_dataset = Dataset.new(label: labels[i], value: values[i], serietype: serietypes[i], offset: offsets[i])
       new_dataset.chart = @chart
-      new_dataset.savei += 1
+      new_dataset.save
+      i += 1
     end
   end
 
