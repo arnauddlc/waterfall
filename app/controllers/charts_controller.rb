@@ -38,12 +38,16 @@ class ChartsController < ApplicationController
     @chart.chart_type = "waterfall"
     if @chart.save
       create_4_default_waterfall_datasets
-      redirect_to waterfallplayground_path(@chart)
+      redirect_to edit_waterfall_path(@chart)
     end
   end
 
   def edit
     @dataset = Dataset.new
+  end
+
+  def edit_waterfall
+    @dataset = Dataset.new_dataset
   end
 
   def update
