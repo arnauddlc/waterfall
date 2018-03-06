@@ -12,6 +12,7 @@ class ChartsController < ApplicationController
 
   def create
     @chart = Chart.new
+    @chart.chart_type = params[:type]
     @chart.user = current_or_guest_user
     @chart.save
     if @chart.save
