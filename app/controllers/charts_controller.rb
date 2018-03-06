@@ -58,7 +58,7 @@ class ChartsController < ApplicationController
 
   def create_3_default_datasets
     labels = ["Jan", "Feb", "Mar"]
-    values = [10, 12, 8]
+    values = [3, 1, 5]
     i = 0
     3.times do
       new_dataset = Dataset.new(label: labels[i], value: values[i])

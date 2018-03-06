@@ -1,11 +1,83 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
+<% colors_hash = {
+  "yellow": "#FFDB29",
+  "orange": "#FD7366",
+  "red": "#F04F2B",
+  "blue": "#30C2FF",
+  "purple": "#9E60F8",
+  "green": "#3EC28F",
+  "gray": "#000000",
+  "light gray": "#F4F4F4",
+  "medium dark gray": "#1A1A1A",
+  "dark gray": "#141414"
+}
+%>
+
+<!-- This is a custom method to toggle show/hide of export button in navbar -->
+
+<meta charset="utf-8">
+
+<style>
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  #path-chart-<%= chart.id %> {
+    stroke: <%= colors_hash[chart.color.to_sym] %>;
+  }
+
+  .path {
+    opacity: 1;
+  }
+
+  .path:hover {
+    opacity: 0.8;
+  }
+
+  .axis text {
+    font-family: "Arial";
+    font-size: <%= font_use - 2 %>px;
+    transform: rotate(-45deg);
+    text-anchor: end;
+  }
+
+  .axis--x .tick line{
+      visibility:hidden;
+    }
+
+  .axis--y {
+    display: none;
+  }
+
+  .value {
+    fill:black;
+    font: <%= chart.font_size %>px;
+    font-weight: 400;
+    text-anchor: middle;
+  }
+
+</style>
+
 <script>
 
 var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
+<% if show_export? %>
+  var marginTop = 70;
+  var marginBottom = 70;
+<% else %>
+  var marginTop = 40;
+  var marginBottom = 40;
+<% end %>
+
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
+
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom;
 
@@ -19,31 +91,66 @@ var line = d3.line()
     .x(function(d) { return x(d.label) + x.bandwidth()/2 ; })
     .y(function(d) { return y(d.value); });
 
-x.domain(datasource.map(function(d) { return d.label; }));
-y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
+    x.domain(datasource.map(function(d) { return d.label; }));
+    y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
 
-g.append("g")
-  .attr("class", "axis axis--x")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
+    // add x labels
+        g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x).tickSizeOuter(0))
 
-g.append("g")
-    .call(d3.axisLeft(y))
-  .append("text")
-    .attr("fill", "#000")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", "0.71em")
-    .attr("text-anchor", "end")
-    .text("Price ($)");
+    // add y labels (vertical axis)
+      g.append("g")
+          .attr("class", "axis axis--y")
+          .call(d3.axisLeft(y).ticks(10))
+        .append("text")
+          .attr("font-family", "Arial")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("font-size", " <%= font_use %>px")
+          .attr("text-anchor", "end")
+          .text("value");
 
-g.append("path")
-    .datum(datasource)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .attr("stroke-linejoin", "round")
-    .attr("stroke-linecap", "round")
-    .attr("stroke-width", 1.5)
-    .attr("d", line);
+    // add title
+    g.append("text")
+      .attr("x", (width / 2))
+      .attr("y", 0 - (margin.top / 2))
+      .attr("text-anchor", "middle")
+      .attr("font-family", "Arial")
+      .style("font-size", "<%= font_use + 6 %>px")
+      .text("<%= chart.title if show_export? %>");
+
+    // add subtitle
+    g.append("text")
+      .attr("x", (width / 2))
+      .attr("y", 0 - (margin.top / 2) + 25)
+      .attr("text-anchor", "middle")
+      .attr("font-family", "Arial")
+      .style("font-size", "<%= font_use %>px")
+      .html("<%= chart.subtitle if show_export? %>");
+
+    // add line
+    g.append("path")
+        .datum(datasource)
+        .attr("class", "path")
+        .attr("id", "path-chart-<%= chart.id %>")
+        .attr("fill", "none")
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 1.5)
+        .attr("d", line);
+
+    // add labels
+    g.selectAll(".text")
+      .data(datasource)
+      .enter().append("text")
+        .attr("font-family", "Arial")
+        .attr("class","value")
+        .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
+        .attr("y", function(d) { return y(d.value) - 20; })
+        .attr("dy", "<%= font_use %>px")
+        .style("font-size", "<%= font_use %>px")
+        .text(function(d) { return d.value; });
 
 </script>
