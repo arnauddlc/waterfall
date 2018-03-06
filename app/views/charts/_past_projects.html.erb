@@ -3,10 +3,11 @@
 
     <div class="col-xs-12 col-sm-4 col-md-3">
       <div class="card">
+        <%= chart.chart_type %>
         <%= link_to edit_chart_path(chart) do %>
            <div class="card-image" id="chart-<%= chart.id %>">
              <svg width=212 height=200></svg>
-             <%= render "chart_script_bar", chart: chart %>
+             <%= render "chart_script_line", chart: chart %>
             <!-- <div class="card-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<= image_path chart.chart_image %>')">
             </div> -->
            </div>
