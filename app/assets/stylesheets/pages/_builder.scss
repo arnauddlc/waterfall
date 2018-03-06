@@ -7,6 +7,23 @@
   width: 400px;
 }
 
+// Font Awesome icons
+.fa.fa-pencil, .fa.fa-minus-circle {
+  color: rgba(51,51,51,1);
+  font-size: 14px;
+  &:hover {
+  color: rgba(51,51,51,0.85);
+  text-decoration: none;
+  }
+}
+.fa.fa-minus-circle {
+  padding: 0 15px 0 1px;
+}
+.fa.fa-plus-circle {
+  padding-right: 12px;
+}
+
+// Table
 #data-sets-table {
   display: table;
   width: 100%;
@@ -15,17 +32,14 @@
     margin: 0;
   }
 }
-
 .table-heading {
   display: table-row;
   font-weight: bold;
   text-align: center;
 }
-
 .table-row {
   display: table-row;
 }
-
 .table-cell {
   display: table-cell;
   border: 1px solid $medium-dark-gray;
@@ -33,14 +47,15 @@
   text-align: center;
   width: 44%;
 }
-
 .table-cell-btn {
   display: table-cell;
   padding: 10px;
   text-align: center;
   width: 12%;
+  a:hover {
+    text-decoration: none;
+  }
 }
-
 .table-cell.edit-delete {
   border: none;
 }

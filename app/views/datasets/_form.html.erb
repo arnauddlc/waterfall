@@ -1,5 +1,6 @@
+<!-- This is the form used to add rows to the table -->
 <%= simple_form_for([chart, dataset], remote: true) do |f| %>
-  <div class="form-table">
+  <div class="table-entry">
     <div class="left-form">
       <%= f.input :label, placeholder: 'Label', label: false %>
     </div>
@@ -8,7 +9,7 @@
     </div>
     <div class="submit-form">
       <%= f.button :button do %>
-        <i class="fa fa-plus-circle"></i>
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
       <% end %>
     </div>
   </div>

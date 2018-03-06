@@ -1,3 +1,4 @@
+<!-- This is the form used to edit and delete rows in the table -->
 <%= simple_form_for([chart, dataset], remote: true, html: { class: "table-row", 'data-dataset-id' => dataset.id })  do |f| %>
   <div class="table-cell">
     <%= f.input :label, placeholder: 'Label', label: false %>
@@ -7,7 +8,7 @@
   </div>
   <div class="table-cell-btn edit-delete">
     <%= f.button :button do %>
-      <i class="fas fa-plus-circle"></i>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
     <% end %>
   </div>
 <% end %>
