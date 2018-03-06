@@ -14,42 +14,93 @@
 }
 %>
 
+<!-- This is a custom method to toggle show/hide of export button in navbar -->
+
+<meta charset="utf-8">
+
+<style>
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+</style>
+
 <script>
 
 var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
+<% if show_export? %>
+  var marginTop = 70;
+  var marginBottom = 70;
+<% else %>
+  var marginTop = 40;
+  var marginBottom = 40;
+<% end %>
+
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
     width = +svg.attr("width"),
     height = +svg.attr("height"),
     radius = Math.min(width, height) / 2,
     g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+// define colors
 var color = d3.scaleOrdinal(["yellow", "blue", "red", "green", "orange", "purple", "gray"]);
 
+// generate pie
 var pie = d3.pie()
     .sort(null)
     .value(function(d) { return d.value; });
 
+// generate arc
 var path = d3.arc()
     .outerRadius(radius - 10)
     .innerRadius(0);
 
+// generate another arc to position labels
 var label = d3.arc()
     .outerRadius(radius - 40)
     .innerRadius(radius - 40);
 
+// insert data to the arc
 var arc = g.selectAll(".arc")
   .data(pie(data))
   .enter().append("g")
-    .attr("class", "arc");
+  .attr("class", "arc");
 
+// call color
 arc.append("path")
-    .attr("d", path)
-    .attr("fill", function(d) { return color(d.data.label); });
+  .attr("d", path)
+  .attr("fill", function(d) { return color(d.data.label); });
 
+// add label
 arc.append("text")
-    .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
-    .attr("dy", "0.35em")
-    .text(function(d) { return d.data.label; });
+  .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+  .attr("dy", "0.35em")
+  .text(function(d) { return d.data.label; });
+
+// add title
+arc.append("text")
+  .attr("x", (width / 2))
+  .attr("y", 0 - (margin.top / 2))
+  .attr("text-anchor", "middle")
+  .attr("font-family", "Arial")
+  .style("font-size", "<%= font_use + 6 %>px")
+  .text("<%= chart.title if show_export? %>");
+
+// add subtitle
+arc.append("text")
+  .attr("x", (width / 2))
+  .attr("y", 0 - (margin.top / 2) + 25)
+  .attr("text-anchor", "middle")
+  .attr("font-family", "Arial")
+  .style("font-size", "<%= font_use %>px")
+  .html("<%= chart.subtitle if show_export? %>");
 
 </script>
