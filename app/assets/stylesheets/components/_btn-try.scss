@@ -1,17 +1,29 @@
 .btn-try {
-	background-color: white;
-	color: $green;
-	border: 1px solid $light-gray;
-	border-radius: 18px;
-	padding-left: 25px;
-	padding-right: 25px;
-	opacity: 0.85;
+  background-color: transparent;
+  color: white;
+  border: 1px solid $light-gray;
+  border-radius: 50px;
+  padding: 10px 15px;
+  opacity: 1;
   transition: all 0.25s ease;
-
-
-	&:hover {
-		text-decoration: underline;
-		opacity: 1;
-		color: $green;
-	}
+  &:hover {
+    opacity: 0.85;
+    color: white;
+  }
 }
+
+// .btn-try {
+// 	background-color: white;
+// 	color: $green;
+// 	border: 1px solid $light-gray;
+// 	border-radius: 18px;
+// 	padding-left: 25px;
+// 	padding-right: 25px;
+// 	opacity: 0.85;
+//   transition: all 0.25s ease;
+// 	&:hover {
+// 		text-decoration: underline;
+// 		opacity: 1;
+// 		color: $green;
+// 	}
+// }

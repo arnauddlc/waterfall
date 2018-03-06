@@ -55,18 +55,26 @@
 
 </style>
 
+  <% def show_export? %>
+    <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
+  <% end %>
+
 <script>
 
-var datasource = <%= chart.datasets.to_json.html_safe %>;
+var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 <% if show_export? %>
   var marginTop = 70;
+  var marginBottom = 70;
 <% else %>
   var marginTop = 40;
+  var marginBottom = 40;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: marginTop , right: 10, bottom: 40, left: 10},
+                    
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
+
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -105,6 +113,14 @@ var g = svg.append("g")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_use + 6 %>px")
       .text("<%= chart.title if show_export? %>");
+
+    g.append("text")
+      .attr("x", (width / 2))
+      .attr("y", 0 - (margin.top / 2) + 25)
+      .attr("text-anchor", "middle")
+      .attr("font-family", "Arial")
+      .style("font-size", "<%= font_use %>px")
+      .html("<%= chart.subtitle if show_export? %>");
 
     // add bars
     g.selectAll(".bar")

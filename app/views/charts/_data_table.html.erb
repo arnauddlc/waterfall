@@ -7,8 +7,10 @@
   </div>
   <div class="table-cell-s edit-delete">
     <%= link_to "" do %>
-      <%= image_tag "pencil.svg" %>
+      <i class="fa fa-pencil" aria-hidden="true"></i>
     <% end %>
-    <%= link_to image_tag("trash-simple.svg"), dataset_path(dataset), method: :delete, data: { confirm: "Are you sure? " } %>
+    <%= link_to dataset_path(dataset), method: :delete, remote: true do %>
+      <i class="fa fa-minus-circle" aria-hidden="true"></i>
+    <% end %>
   </div>
 </div>
