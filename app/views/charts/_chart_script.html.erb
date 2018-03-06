@@ -19,6 +19,13 @@
 	  shape-rendering: crispEdges;
 	}
 
+  .axis text {
+    font-family: "Arial";
+    font-size: <%= font_use - 2 %>px;
+    transform: rotate(-45deg);
+    text-anchor: end;
+  }
+
 	#bar-chart-<%= chart.id %> {
 	  fill: <%= col_str %>;
 	}
@@ -41,7 +48,7 @@
 
   .value {
     fill:white;
-    font: 15px;
+    font: <%= chart.font_size %>px;
     font-weight: 400;
     text-anchor: middle;
   }
@@ -65,7 +72,9 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
+                    
     margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
+
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -78,38 +87,46 @@ var g = svg.append("g")
     x.domain(datasource.map(function(d) { return d.label; }));
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
 
+    // add x labels
     g.append("g")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSizeOuter(0));
+        .call(d3.axisBottom(x).tickSizeOuter(0))
 
+    // add y labels (vertical axis)
     g.append("g")
         .attr("class", "axis axis--y")
         .call(d3.axisLeft(y).ticks(10))
       .append("text")
+        .attr("font-family", "Arial")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
-        .attr("dy", "0.71em")
+        .attr("font-size", " <%= font_use %>px")
         .attr("text-anchor", "end")
         .text("value");
 
+    // add title    
     g.append("text")
       .attr("x", (width / 2))
       .attr("y", 0 - (margin.top / 2))
       .attr("text-anchor", "middle")
-      .style("font-size", "32px")
-      .html("<%= chart.title if show_export? %>");
+      .attr("font-family", "Arial")
+      .style("font-size", "<%= font_use + 6 %>px")
+      .text("<%= chart.title if show_export? %>");
 
     g.append("text")
       .attr("x", (width / 2))
       .attr("y", 0 - (margin.top / 2) + 25)
       .attr("text-anchor", "middle")
-      .style("font-size", "18px")
+      .attr("font-family", "Arial")
+      .style("font-size", "<%= font_use %>px")
       .html("<%= chart.subtitle if show_export? %>");
 
+    // add bars
     g.selectAll(".bar")
       .data(datasource)
       .enter().append("rect")
+        .attr("font-family", "Arial")
         .attr("class", "bar")
         .attr("id", "bar-chart-<%= chart.id %>")
         .attr("x", function(d) { return x(d.label); })
@@ -117,14 +134,16 @@ var g = svg.append("g")
         .attr("width", x.bandwidth())
         .attr("height", function(d) { return height - y(d.value); });
 
+    // add labels    
     g.selectAll(".text")
       .data(datasource)
       .enter().append("text")
+      .attr("font-family", "Arial")
       .attr("class","value")
       .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
       .attr("y", function(d) { return y(d.value) + 1; })
-      .attr("dy", "15px")
-      .style("font-size", "15px")
+      .attr("dy", "<%= font_use %>px")
+      .style("font-size", "<%= font_use %>px")
       .text(function(d) { return d.value; });
 
 </script>
