@@ -3,6 +3,7 @@ class ChartsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :new, :create, :edit, :update]
   # helper method to handle guest or logged in users
   helper_method :current_or_guest_user
+  helper_method :font_use
 
   def index
     @user = current_user
@@ -45,6 +46,11 @@ class ChartsController < ApplicationController
   def destroy
     @chart.destroy
     redirect_to charts_path
+  end
+
+  def font_use
+    return @chart.font_size if show_export?
+    return 8
   end
 
   private
