@@ -45,10 +45,6 @@ class ChartsController < ApplicationController
     @dataset = Dataset.new
   end
 
-  def edit_wf
-    @dataset = Dataset.new
-  end
-
   def update
     if @chart.update(chart_params)
       respond_to do |format|
@@ -88,9 +84,10 @@ class ChartsController < ApplicationController
     values = [10 , 2 ,  3  , 9 ]
     serietypes = ["baseline", "plus", "less", "baseline"]
     offsets = [ 0 , 10 , 9 , 0 ]
+    values_user = [ "10", "2", "3", "e"]
     i=0
     4.times do 
-      new_dataset = Dataset.new(label: labels[i], value: values[i], serietype: serietypes[i], offset: offsets[i])
+      new_dataset = Dataset.new(label: labels[i], value: values[i], serietype: serietypes[i], offset: offsets[i], value_user: values_user[i])
       new_dataset.chart = @chart
       new_dataset.save
       i += 1

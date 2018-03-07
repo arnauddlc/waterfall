@@ -54,6 +54,6 @@ class DatasetsController < ApplicationController
   end
 
   def dataset_params
-    params.require(:dataset).permit(:label, :value)
+    params.require(:dataset).permit(:label, :value, :value_user)
   end
 end
