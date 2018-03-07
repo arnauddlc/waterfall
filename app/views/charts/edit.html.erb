@@ -14,7 +14,19 @@
           <div id="titles-form" class="hidden">
             <%= render 'charts/form' %>
           </div>
-            <%= render 'datasets/datasets_table', chart: @chart %>
+            <div id="data-sets-table">
+              <div class="table-heading">
+                <div class="table-cell">
+                  <p>LABEL</p>
+                </div>
+                <div class="table-cell">
+                  <p>VALUE</p>
+                </div>
+              </div>
+              <% @chart.datasets.order(:created_at).each do |dataset| %>
+                <%= render 'datasets/show', dataset: dataset %>
+              <% end %>
+            </div>
             <%= render 'datasets/form', chart: @chart, dataset: @dataset %>
         </div>
         <div id="design" class="tab-pane fade">

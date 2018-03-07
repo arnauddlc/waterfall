@@ -14,6 +14,7 @@ class DatasetsController < ApplicationController
   end
 
   def update
+    @chart = @dataset.chart
     @chart.chart_type == "waterfall" ? update_waterfall : update_non_waterfall    
   end
 
