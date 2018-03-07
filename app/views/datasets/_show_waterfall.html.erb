@@ -1,0 +1,16 @@
+<div class="table-row" data-dataset-id="<%= dataset.id %>">
+  <div class="table-cell">
+    <p><%= "#{dataset.label}" %></p>
+  </div>
+  <div class="table-cell">
+    <p><%= "#{dataset.value_user}" %></p>
+  </div>
+  <div class="table-cell-btn edit-delete">
+    <%= link_to edit_dataset_path(dataset), remote: true do %>
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+    <% end %>
+    <%= link_to dataset_path(dataset), method: :delete, remote: true do %>
+      <i class="fa fa-minus-circle" aria-hidden="true"></i>
+    <% end %>
+  </div>
+</div>
