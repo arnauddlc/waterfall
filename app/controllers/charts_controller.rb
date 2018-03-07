@@ -22,7 +22,7 @@ class ChartsController < ApplicationController
       if @chart.chart_type == "waterfall"
         create_4_default_waterfall_datasets
         respond_to do |format|
-          format.html { redirect_to edit_wf_chart_path(@chart)}
+          format.html { redirect_to edit_chart_path(@chart)}
           format.js # <-- will render `app/views/charts/create.js.erb`
         end
       else
