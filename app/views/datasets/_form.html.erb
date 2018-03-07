@@ -5,7 +5,11 @@
       <%= f.input :label, placeholder: 'Label', label: false %>
     </div>
     <div class="right-form">
+      <% if chart.chart_type == "waterfall" %>
+      <%= f.input :value_user, placeholder: 'Value', label: false %>
+      <% else %>
       <%= f.input :value, placeholder: 'Value', label: false %>
+      <% end %>
     </div>
     <div class="submit-form">
       <%= f.button :button do %>

@@ -3,7 +3,7 @@
     <p><%= "#{dataset.label}" %></p>
   </div>
   <div class="table-cell">
-    <p><%= "#{dataset.value}" %></p>
+    <p><%= "#{@chart.chart_type == "waterfall" ? dataset.value_user : dataset.value}" %></p>
   </div>
   <div class="table-cell-btn edit-delete">
     <%= link_to edit_dataset_path(dataset), remote: true do %>
