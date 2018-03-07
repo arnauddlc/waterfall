@@ -14,8 +14,6 @@
 }
 %>
 
-<!-- This is a custom method to toggle show/hide of export button in navbar -->
-
 <meta charset="utf-8">
 
 <style>
@@ -63,12 +61,8 @@
 
 </style>
 
-  <% def show_export? %>
-    <% ((params[:action] == 'edit') && (controller_name == "charts")) %>
-  <% end %>
-
 <script>
-
+  
 var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 <% if show_export? %>
@@ -95,24 +89,24 @@ var g = svg.append("g")
 
     x.domain(datasource.map(function(d) { return d.label; }));
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
+      
+  // add x labels
+      g.append("g")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x).tickSizeOuter(0))
 
-    // add x labels
-    g.append("g")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSizeOuter(0))
-
-    // add y labels (vertical axis)
-    g.append("g")
-        .attr("class", "axis axis--y")
-        .call(d3.axisLeft(y).ticks(10))
-      .append("text")
-        .attr("font-family", "Arial")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("font-size", " <%= font_use %>px")
-        .attr("text-anchor", "end")
-        .text("value");
+      // add y labels (vertical axis)
+      g.append("g")
+          .attr("class", "axis axis--y")
+          .call(d3.axisLeft(y).ticks(10))
+        .append("text")
+          .attr("font-family", "Arial")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("font-size", " <%= font_use %>px")
+          .attr("text-anchor", "end")
+          .text("value");
 
     // add title
     g.append("text")
