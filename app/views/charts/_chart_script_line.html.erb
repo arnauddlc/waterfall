@@ -70,21 +70,22 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 <% if show_export? %>
   var marginTop = 70;
   var marginBottom = 70;
+  var positionHeight = 4;
 <% else %>
   var marginTop = 40;
   var marginBottom = 40;
+  var positionHeight = 2.5;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 50},
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom;
-
 
 var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
     y = d3.scaleLinear().rangeRound([height, 0]);
 
-var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + height / positionHeight + ")");
 
 var line = d3.line()
     .x(function(d) { return x(d.label) + x.bandwidth()/2 ; })
@@ -94,10 +95,10 @@ var line = d3.line()
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
 
     // add x labels
-        g.append("g")
-            .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x).tickSizeOuter(0))
+      g.append("g")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x).tickSizeOuter(0))
 
     // add y labels (vertical axis)
       g.append("g")
@@ -114,7 +115,7 @@ var line = d3.line()
     // add title
     g.append("text")
       .attr("x", (width / 2))
-      .attr("y", 0 - (margin.top / 2))
+      .attr("y", 0 - (margin.top / 2) - 12)
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_use + 6 %>px")
@@ -123,7 +124,7 @@ var line = d3.line()
     // add subtitle
     g.append("text")
       .attr("x", (width / 2))
-      .attr("y", 0 - (margin.top / 2) + 25)
+      .attr("y", 0 - (margin.top / 2) + 8)
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_use %>px")

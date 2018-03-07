@@ -5,17 +5,18 @@
   background: linear-gradient(to right, $light-gray 50%, white 50%);
   padding: 0px 50px;
 }
-// Chart section
-.display-chart {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  .all-titles {
-    padding-left: 0;
-    text-align: center;
-    .hidden {
-      display: none;
-    }
+.chart-area {
+  padding-left: 15px;
+}
+// Title section - also _title_section.html.erb
+#titles-form {
+  margin-top: 25px;
+}
+
+.all-titles {
+  margin-top: 25px;
+  .hidden {
+    display: none;
   }
   .h4 {
     margin-top: 0;
@@ -36,7 +37,7 @@
 #data-sets-table {
   display: table;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 20px;
   p {
     margin: 0;
   }
@@ -86,12 +87,13 @@
   padding: 0 15px 0 1px;
 }
 
-// @media (max-width: 960px) {
-//   /* For a screen < 960px, this CSS will be read */
-//   .container {
-//     width: 700px;
-//   }
-// }
+@media (min-width: 770px) {
+  /* For a screen < 960px, this CSS will be read */
+  .chart-area {
+  height: 100vh;
+  width: 100%;
+  }
+}
 
 @media (max-width: 770px) {
   /* For a screen < 760px, this CSS will be read */
@@ -106,12 +108,8 @@
   }
   .chart-area {
     background: white;
-  }
-  .display-chart {
-    margin-bottom: 30px;
-    .all-titles {
-      text-align: left;
-    }
+    padding-left: 0;
+    margin-bottom: 50px;
   }
 }
 
@@ -128,5 +126,3 @@
 //   padding: 0px 50px;
 //   }
 // }
-
-

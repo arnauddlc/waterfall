@@ -1,55 +1,45 @@
-<div class="">
-  <div class="container-fluid half-half">
-    <div class="row main-container">
-      <div class="col-xs-12 col-sm-6">
-        <ul class="nav nav-tabs ">
-          <li class="active"><a data-toggle="tab" href="#data">DATA</a></li>
-          <li><a data-toggle="tab" href="#design">DESIGN</a></li>
-          <li><a data-toggle="tab" href="#notes">NOTES</a></li>
-        </ul>
-
-        <div class="tab-content">
-          <div id="data" class="tab-pane fade in active">
-            <div id="data-sets-table">
-              <div class="table-heading">
-                <div class="table-cell">
-                  <p>LABEL</p>
-                </div>
-                <div class="table-cell">
-                  <p>VALUE</p>
-                </div>
-              </div>
-              <% @chart.datasets.order(:created_at).each do |dataset| %>
-                <%= render 'datasets/show', dataset: dataset %>
-              <% end %>
-            </div>
-              <%= render 'datasets/form', chart: @chart, dataset: @dataset %>
-          </div>
-
-          <div id="design" class="tab-pane fade">
-            <%= render 'charts/design_section' %>
-          </div>
-
-          <div id="notes" class="tab-pane fade">
-            <%= render 'charts/notes_section' %>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6">
-        <div class="display-chart">
-          <div class="chart-area" id="chart-<%= @chart.id %>">
-            <svg width="450" height="400" id="chart-d3" data-title="<%= @chart.title %>"></svg>
-          </div>
-
+<div class="container-fluid half-half">
+  <div class="row main-container">
+    <div class="col-xs-12 col-sm-6">
+      <ul class="nav nav-tabs ">
+        <li class="active"><a data-toggle="tab" href="#data">DATA</a></li>
+        <li><a data-toggle="tab" href="#design">DESIGN</a></li>
+        <li><a data-toggle="tab" href="#notes">NOTES</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="data" class="tab-pane fade in active">
           <div id="chart-titles">
             <%= render 'charts/title_section' %>
           </div>
-
           <div id="titles-form" class="hidden">
             <%= render 'charts/form' %>
           </div>
-
+          <div id="data-sets-table">
+            <div class="table-heading">
+              <div class="table-cell">
+                <p>LABEL</p>
+              </div>
+              <div class="table-cell">
+                <p>VALUE</p>
+              </div>
+            </div>
+            <% @chart.datasets.order(:created_at).each do |dataset| %>
+              <%= render 'datasets/show', dataset: dataset %>
+            <% end %>
+          </div>
+            <%= render 'datasets/form', chart: @chart, dataset: @dataset %>
         </div>
+        <div id="design" class="tab-pane fade">
+          <%= render 'charts/design_section' %>
+        </div>
+        <div id="notes" class="tab-pane fade">
+          <%= render 'charts/notes_section' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <div class="chart-area" id="chart-<%= @chart.id %>">
+        <svg width="450" height="400" id="chart-d3" data-title="<%= @chart.title %>"></svg>
       </div>
     </div>
   </div>
