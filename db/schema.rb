@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306101706) do
+ActiveRecord::Schema.define(version: 20180306073813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,6 @@ ActiveRecord::Schema.define(version: 20180306101706) do
     t.bigint "chart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "serietype", default: "baseline"
-    t.integer "offset", default: 0
     t.index ["chart_id"], name: "index_datasets_on_chart_id"
   end
 
