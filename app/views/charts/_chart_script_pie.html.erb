@@ -38,13 +38,15 @@ var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 <% if show_export? %>
   var marginTop = 70;
   var marginBottom = 70;
+  var marginLeft = 10;
 <% else %>
   var marginTop = 40;
   var marginBottom = 40;
+  var marginLeft = 50;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
     width = +svg.attr("width"),
     height = +svg.attr("height"),
     radius = Math.min(width, height) / 2.8,
@@ -88,11 +90,13 @@ arc.append("path")
       return color(i);
   });
 
-
 // add label
 arc.append("text")
   .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
   .attr("dy", "0.35em")
+  .attr("text-anchor", "middle")
+  .attr("font-family", "Arial")
+  .style("font-size", "<%= font_use %>px")
   .text(function(d) { return d.data.label; });
 
 // add title
