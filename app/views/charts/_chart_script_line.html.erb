@@ -94,10 +94,10 @@ var line = d3.line()
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
 
     // add x labels
-        g.append("g")
-            .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x).tickSizeOuter(0))
+      g.append("g")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x).tickSizeOuter(0))
 
     // add y labels (vertical axis)
       g.append("g")
