@@ -51,7 +51,14 @@ var svg = d3.select("#chart-<%= chart.id %> > svg"),
     g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // define colors
-var color = d3.scaleOrdinal(["yellow", "blue", "red", "green", "orange", "purple", "gray"]);
+// var color = d3.scaleOrdinal(["yellow", "blue", "red", "green", "orange", "purple", "gray"]);
+
+var N = <%= chart.datasets.size %>;
+console.log(N);
+var colorRange = ['<%= colors_hash[chart.color.to_sym] %>', '#FFF'];
+var color = d3.scaleLinear()
+  .domain([0, N])
+  .range(colorRange);
 
 // generate pie
 var pie = d3.pie()
@@ -77,7 +84,10 @@ var arc = g.selectAll(".arc")
 // append the path to the arc
 arc.append("path")
   .attr("d", path)
-  .attr("fill", function(d) { return color(d.data.label); });
+  .attr("fill", function(d,i){
+      return color(i);
+  });
+
 
 // add label
 arc.append("text")
