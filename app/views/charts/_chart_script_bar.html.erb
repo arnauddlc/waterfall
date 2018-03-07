@@ -68,8 +68,7 @@
   <% end %>
 
 <script>
-
-
+  
   var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
   <% if show_export? %>
@@ -147,6 +146,12 @@
       g.selectAll(".text")
         .data(datasource)
         .enter().append("text")
+
+    // add y labels (vertical axis)
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10))
+      .append("text")
         .attr("font-family", "Arial")
         .attr("class","value")
         .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
