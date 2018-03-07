@@ -76,7 +76,7 @@ class DatasetsController < ApplicationController
     i = 0
     datasets_raw.each do |dataset|
       if i == 0
-        dataset.value = value_user.to_f
+        dataset.value = value_user.to_i
         dataset.serietype = "baseline"
         dataset.offset = 0
         sum_result += dataset.value
@@ -88,15 +88,15 @@ class DatasetsController < ApplicationController
         dataset.serietype = "baseline"
         dataset.save
         i += 1
-      elsif dataset.value_user.to_f >= 0
-        dataset.value = dataset.value_user.to_f
+      elsif dataset.value_user.to_i >= 0
+        dataset.value = dataset.value_user.to_i
         dataset.serietype = "plus"
         dataset.offset = sum_result
         sum_result += dataset.value
         dataset.save
         i += 1
-      elsif dataset.value_user.to_f < 0
-        dataset.value = -dataset.value_user.to_f
+      elsif dataset.value_user.to_i < 0
+        dataset.value = -dataset.value_user.to_i
         dataset.serietype = "less"
         dataset.offset = sum_result - dataset.value
         sum_result += -dataset.value
