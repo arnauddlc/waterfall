@@ -1,7 +1,11 @@
+<div class="wrap-index">
+  <div class="container">
+    <h3>Create a chart</h3>
+    <%= render 'select_chart' %>
+  </div>
+</div>
 <div class="container">
-  <h3>Create a chart</h3>
-  <%= render 'select_chart' %>
-  <h3>All your projects</h3>
+  <h3 id="all-projects">All your projects</h3>
   <div>
     <% if user_signed_in? && @charts.any? %>
       <%= render 'past_projects' %>
