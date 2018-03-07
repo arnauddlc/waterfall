@@ -106,6 +106,7 @@ class DatasetsController < ApplicationController
         respond_to do |format|
         format.html { render 'charts/edit' }
         format.js
+        end
       end
     end
     @chart.save
