@@ -39,10 +39,14 @@ var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
   var marginTop = 70;
   var marginBottom = 70;
   var marginLeft = 10;
+  var valueRadius = 50;
+  var positionWidth = 2;
 <% else %>
   var marginTop = 40;
   var marginBottom = 40;
   var marginLeft = 50;
+  var valueRadius = 10;
+  var positionWidth = 1.65;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
@@ -50,7 +54,7 @@ var svg = d3.select("#chart-<%= chart.id %> > svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height"),
     radius = Math.min(width, height) / 2.8,
-    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    g = svg.append("g").attr("transform", "translate(" + width / positionWidth + "," + height / 2 + ")");
 
 // define colors
 // var color = d3.scaleOrdinal(["yellow", "blue", "red", "green", "orange", "purple", "gray"]);
@@ -74,8 +78,12 @@ var path = d3.arc()
 
 // generate another arc to position labels
 var label = d3.arc()
-    .outerRadius(radius - 40)
-    .innerRadius(radius - 40);
+    .outerRadius(radius + 10)
+    .innerRadius(radius);
+
+var value = d3.arc()
+    .outerRadius(radius - 50)
+    .innerRadius(radius - valueRadius);
 
 // append g elements to arc
 var arc = g.selectAll(".arc")
@@ -98,6 +106,14 @@ arc.append("text")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use %>px")
   .text(function(d) { return d.data.label; });
+
+arc.append("text")
+  .attr("transform", function(d) { return "translate(" + value.centroid(d) + ")"; })
+  .attr("dy", "0.35em")
+  .attr("text-anchor", "middle")
+  .attr("font-family", "Arial")
+  .style("font-size", "<%= font_use %>px")
+  .text(function(d) { return d.data.value; });
 
 // add title
 arc.append("text")
