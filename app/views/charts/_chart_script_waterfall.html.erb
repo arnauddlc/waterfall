@@ -152,15 +152,22 @@ var g = svg.append("g")
         .attr("font-family", "Arial")
         .attr("width", x.bandwidth())
         .attr("x", function(d) { return x(d.label); })
-        .attr("y", function(d) { return (y(d.value + d.offset)); })
-        .attr("height", function(d) { return height - y(d.value); })
+        .attr("y", function(d) { return height - y(d.value); }) // starting point of transition
+        .attr("height", 0) // starting point of transitio
         .attr("class", function(d) {return ("bar bar-" + d.serietype); })
-        .attr("id", function(d) { return ("bar-" + d.serietype +"-chart-<%= chart.id %>"); });
+        .attr("id", function(d) { return ("bar-" + d.serietype +"-chart-<%= chart.id %>"); })
+        .transition()
+          .delay(300)
+          .duration(600)
+          .ease(d3.easeQuad)
+          .attr("y", function(d) { return (y(d.value + d.offset)); })
+          .attr("height", function(d) { return height - y(d.value); });
 
     //add labels    
     g.selectAll(".text")
       .data(datasource)
       .enter().append("text")
+      .attr("opacity", 0)
       .attr("font-family", "Arial")
       .attr("class", function(d) { return "value value-" + d.serietype })
       .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
@@ -172,6 +179,9 @@ var g = svg.append("g")
       .style("font-size", "<%= font_use %>px")
       .text(function(d) { 
       	if (d.serietype === "less") { return "- " + d.value;}
-      	else { return d.value; } });
+      	else { return d.value; } })
+      .transition()
+        .delay(900)
+        .attr("opacity", 1);
       
 </script>
