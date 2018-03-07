@@ -5,7 +5,11 @@
       <%= f.input :label, placeholder: 'Label', label: false %>
     </div>
     <div class="table-cell right-form">
-      <%= f.input :value, placeholder: 'Value', label: false %>
+      <% if chart.chart_type == "waterfall" %>
+        <%= f.input :value_user, placeholder: 'Value', label: false, hint: "type 'e' to generate baseline" %>
+      <% else %>
+        <%= f.input :value, placeholder: 'Value', label: false %>
+      <% end %>
     </div>
     <div class="table-cell-btn submit-form">
       <%= f.button :button do %>

@@ -39,7 +39,7 @@
 	}
 
 	#bar-baseline-chart-<%= chart.id %> {
-		fill: #1A1A1A;
+		fill: <%= colors_hash[chart.color.to_sym]  %>;
 	}
 
 	#bar-plus-chart-<%= chart.id %> {

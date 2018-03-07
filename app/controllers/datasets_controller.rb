@@ -15,7 +15,7 @@ class DatasetsController < ApplicationController
 
   def update
     @chart = @dataset.chart
-    @chart.chart_type == "waterfall" ? update_waterfall : update_non_waterfall    
+    update_common   
   end
 
   def destroy
@@ -34,8 +34,10 @@ class DatasetsController < ApplicationController
   end
 
   def data_save_common
+    @dataset.value = 0 if @chart.chart_type == "waterfall"
     if @dataset.save
       @chart.updated_at = @dataset.updated_at
+      update_datasets_waterfall(@chart) if @chart.chart_type == "waterfall"
       @chart.save
       respond_to do |format|
         format.html { redirect_to edit_chart_path(@chart)}
@@ -49,10 +51,11 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def update_non_waterfall
+  def update_common
+    @dataset.value = 0 if @chart.chart_type == "waterfall"
     if @dataset.update(dataset_params)
-      @chart = @dataset.chart
       @chart.updated_at = @dataset.updated_at
+      update_datasets_waterfall(@chart) if @chart.chart_type == "waterfall"
       @chart.save
       respond_to do |format|
         format.html { redirect_to edit_chart_path(@chart)}
@@ -66,53 +69,39 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def update_waterfall
-    @dataset.value = 0
-    @dataset.update(dataset_params)
-    @chart = @dataset.chart
-    @chart.updated_at = @dataset.updated_at
-    datasets_raw = @chart.datasets
+  def update_datasets_waterfall(chart)
+    datasets_raw = chart.datasets.order(:created_at)
     sum_result = 0
     i = 0
-    datasets_raw.each do |dataset|
+    datasets_raw.each do |dts|
       if i == 0
-        dataset.value = value_user.to_i
-        dataset.serietype = "baseline"
-        dataset.offset = 0
-        sum_result += dataset.value
-        dataset.save
+        dts.value = dts.value_user.to_i
+        dts.serietype = "baseline"
+        dts.offset = 0
+        sum_result += dts.value
+        dts.save
         i += 1
-      elsif dataset.value_user == "e"
-        dataset.value = sum_result
-        dataset.offset = 0
-        dataset.serietype = "baseline"
-        dataset.save
+      elsif dts.value_user == "e"
+        dts.value = sum_result
+        dts.offset = 0
+        dts.serietype = "baseline"
+        dts.save
         i += 1
-      elsif dataset.value_user.to_i >= 0
-        dataset.value = dataset.value_user.to_i
-        dataset.serietype = "plus"
-        dataset.offset = sum_result
-        sum_result += dataset.value
-        dataset.save
-        i += 1
-      elsif dataset.value_user.to_i < 0
-        dataset.value = -dataset.value_user.to_i
-        dataset.serietype = "less"
-        dataset.offset = sum_result - dataset.value
-        sum_result += -dataset.value
-        dataset.save
+      elsif dts.value_user.to_i >= 0
+        dts.value = dts.value_user.to_i
+        dts.serietype = "plus"
+        dts.offset = sum_result
+        sum_result += dts.value
+        dts.save
         i += 1
       else
-        respond_to do |format|
-        format.html { render 'charts/edit' }
-        format.js
-        end
+        dts.value = -dts.value_user.to_i
+        dts.serietype = "less"
+        dts.offset = sum_result - dts.value
+        sum_result += -dts.value
+        dts.save
+        i += 1
       end
-    end
-    @chart.save
-    respond_to do |format|
-      format.html { redirect_to edit_chart_path(@chart)}
-      format.js # <-- will render `app/views/datasets/create.js.erb`
     end
   end
 

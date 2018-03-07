@@ -6,7 +6,8 @@
     </div>
     <div class="right-form">
       <% if chart.chart_type == "waterfall" %>
-      <%= f.input :value_user, placeholder: 'Value', label: false %>
+      <%= f.input :value_user, placeholder: 'Value', label: false, hint: "type 'e' to generate baseline" %>
+      <%= f.hidden_field :value %>
       <% else %>
       <%= f.input :value, placeholder: 'Value', label: false %>
       <% end %>
