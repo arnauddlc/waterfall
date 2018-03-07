@@ -138,8 +138,9 @@ var g = svg.append("g")
       .attr("x", function(d) { return x(d.label); })
       .attr("width", x.bandwidth())
       .transition()
+        .delay(300)
         .duration(600)
-        .ease("linear")
+        .ease(d3.easeQuad)
         .attr("y", function(d) { return y(d.value); })
         .attr("height", function(d) { return height - y(d.value); });
 
