@@ -133,10 +133,15 @@ var g = svg.append("g")
       .attr("font-family", "Arial")
       .attr("class", "bar")
       .attr("id", "bar-chart-<%= chart.id %>")
+      .attr("y", height) // starting point of transition
+      .attr("height", 0) // starting point of transition
       .attr("x", function(d) { return x(d.label); })
-      .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
-      .attr("height", function(d) { return height - y(d.value); });
+      .transition()
+        .duration(600)
+        .ease("linear")
+        .attr("y", function(d) { return y(d.value); })
+        .attr("height", function(d) { return height - y(d.value); });
 
     // add labels
     g.selectAll(".text")
