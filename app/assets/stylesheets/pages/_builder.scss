@@ -5,7 +5,9 @@
   background: linear-gradient(to right, $light-gray 50%, white 50%);
   padding: 0px 50px;
 }
-
+.chart-area {
+  padding-left: 15px;
+}
 // Title section - also _title_section.html.erb
 #titles-form {
   margin-top: 25px;
@@ -85,12 +87,13 @@
   padding: 0 15px 0 1px;
 }
 
-// @media (max-width: 960px) {
-//   /* For a screen < 960px, this CSS will be read */
-//   .container {
-//     width: 700px;
-//   }
-// }
+@media (min-width: 770px) {
+  /* For a screen < 960px, this CSS will be read */
+  .chart-area {
+  height: 100vh;
+  width: 100%;
+  }
+}
 
 @media (max-width: 770px) {
   /* For a screen < 760px, this CSS will be read */
@@ -105,12 +108,8 @@
   }
   .chart-area {
     background: white;
-  }
-  .display-chart {
-    margin-bottom: 30px;
-    .all-titles {
-      text-align: left;
-    }
+    padding-left: 0;
+    margin-bottom: 50px;
   }
 }
 
@@ -127,5 +126,3 @@
 //   padding: 0px 50px;
 //   }
 // }
-
-
