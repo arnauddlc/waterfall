@@ -4,6 +4,8 @@ class ChartsController < ApplicationController
   # helper method to handle guest or logged in users
   helper_method :current_or_guest_user
   helper_method :font_use
+  helper_method :colors_selector
+
 
   def waterfallplayground
   end
@@ -17,6 +19,7 @@ class ChartsController < ApplicationController
     @chart = Chart.new
     @chart.chart_type = params[:type]
     @chart.user = current_or_guest_user
+    @chart.color = "gray" if @chart.chart_type == "waterfall"
     # @chart.save
     if @chart.save
       if @chart.chart_type == "waterfall"
@@ -65,6 +68,16 @@ class ChartsController < ApplicationController
   def font_use
     return @chart.font_size if show_export?
     return 8
+  end
+
+  def colors_selector
+    colors = { yellow: "#FFDB29",
+               orange: "#FD7366",
+               blue: "#30C2FF",
+               purple: "#9E60F8",
+               green: "#3EC28F",
+               gray: "#141414" }
+    return colors
   end
 
   private
