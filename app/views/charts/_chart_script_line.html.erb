@@ -89,6 +89,9 @@ var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + hei
 
 var line = d3.line()
     .x(function(d) { return x(d.label) + x.bandwidth()/2 ; })
+    .y(y(0));
+var lineFin = d3.line()
+    .x(function(d) { return x(d.label) + x.bandwidth()/2 ; })
     .y(function(d) { return y(d.value); });
 
     x.domain(datasource.map(function(d) { return d.label; }));
@@ -139,7 +142,12 @@ var line = d3.line()
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
-      .attr("d", line);
+      .attr("d", line)
+      .transition()
+        .delay(300)
+        .duration(600)
+        .ease(d3.easeQuad)
+        .attr("d", lineFin)
 
     // add labels
     g.selectAll(".text")
