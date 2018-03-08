@@ -1,11 +1,11 @@
-<%= simple_form_for(@chart, remote: true) do |f| %>
+<%= simple_form_for(@chart) do |f| %>
   <h5 class="margin-top">FONT-SIZE</h5>
   <div class="font-size-entry">
     <div class="font-size-picker">
       <%= f.input :font_size, label: false, collection: [ 8, 12, 16, 24, 32 ] %>
     </div>
     <div class="font-size-btn">
-      <%= f.button :button do %>
+      <%= f.button :button, name: "active_tab", value: "design" do %>
         <i class="fa fa-check-square-o" aria-hidden="true"></i>
       <% end %>
     </div>
@@ -22,7 +22,7 @@ gray: "#141414" } %>
 <div class="color-selection">
   <h5>COLOR</h5>
   <% colors.each do |color, value| %>
-    <%= link_to chart_path(chart: {color: color}), method: :patch do %>
+    <%= link_to chart_path(chart: {color: color}, active_tab: "design"), method: :patch do %>
       <div class="color-box" style="background-color:<%= value %>"></div>
     <% end %>
   <% end %>
