@@ -1,38 +1,29 @@
+<%= simple_form_for(@chart, remote: true) do |f| %>
+  <h5 class="margin-top">FONT-SIZE</h5>
+  <div class="font-size-entry">
+    <div class="font-size-picker">
+      <%= f.input :font_size, label: false, collection: [ 8, 12, 16, 24, 32 ] %>
+    </div>
+    <div class="font-size-btn">
+      <%= f.button :button do %>
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <% colors = { yellow: "#FFDB29",
 orange: "#FD7366",
-red: "#F04F2B",
 blue: "#30C2FF",
 purple: "#9E60F8",
 green: "#3EC28F",
-gray: "#000000",
-"light-gray" => "#F4F4F4",
-"medium-dark-gray" => "#1A1A1A",
-"dark-gray" => "#141414"} %>
+gray: "#141414" } %>
 
-
-  <style>
-    .color-box {
-      width: 30px;
-      height: 30px;
-      margin: 3px;
-    }
-    .color-selection {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-  </style>
-
-
-<%= simple_form_for(@chart, remote: true) do |f| %>
-  <%= f.input :font_size, collection: [ 8, 12, 16, 24, 32] %>
-  <%= f.button :submit %>
-<% end %>
-
-    <div class="color-selection">
-      <% colors.each do |color, value| %>
-        <%= link_to chart_path(chart: {color: color}), method: :patch do %>
-          <div class="color-box" style="background-color:<%= value %>">  </div>
-        <% end %>
-      <% end %>
-    </div>
+<div class="color-selection">
+  <h5>COLOR</h5>
+  <% colors.each do |color, value| %>
+    <%= link_to chart_path(chart: {color: color}), method: :patch do %>
+      <div class="color-box" style="background-color:<%= value %>"></div>
+    <% end %>
+  <% end %>
+</div>
