@@ -47,6 +47,7 @@ class ChartsController < ApplicationController
   end
 
   def update
+    # raise
     if @chart.update(chart_params)
       respond_to do |format|
         format.html { redirect_to edit_chart_path(@chart, active_tab: params[:active_tab])}
