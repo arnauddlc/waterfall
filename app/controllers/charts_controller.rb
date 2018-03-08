@@ -73,6 +73,6 @@ class ChartsController < ApplicationController
   end
 
   def chart_params
-    params.require(:chart).permit(:title, :subtitle, :notes, :color, :font_size)
+    params.require(:chart).permit(:title, :subtitle, :notes, :color, :font_size, :chart_type)
   end
 end
