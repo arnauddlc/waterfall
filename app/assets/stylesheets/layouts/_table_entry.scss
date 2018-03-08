@@ -1,3 +1,4 @@
+// Below table entry
 .table-entry {
   margin-top: 10px;
   display: flex;
@@ -26,5 +27,24 @@
   .submit-form {
     width: 12%;
     text-align: center;
+  }
+}
+
+// In table entry
+.table-inline-entry {
+  .btn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+  .fa.fa-plus-circle {
+    font-size: 20px;
+    padding-right: 12px;
+    &:hover {
+    color: $green;
+    }
+  }
+  .form-group {
+    margin-bottom: 0;
   }
 }
