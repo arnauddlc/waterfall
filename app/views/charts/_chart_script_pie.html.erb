@@ -40,15 +40,11 @@ var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
   var marginBottom = 70;
   var marginLeft = 10;
   var valueRadius = 50;
-  var positionWidth = 2;
-  var positionHeight = 1.8;
 <% else %>
   var marginTop = 30;
   var marginBottom = 40;
   var marginLeft = 50;
   var valueRadius = 10;
-  var positionWidth = 1.65;
-  var positionHeight = 2.2;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
@@ -56,7 +52,7 @@ var svg = d3.select("#chart-<%= chart.id %> > svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height"),
     radius = Math.min(width, height) / 2.8,
-    g = svg.append("g").attr("transform", "translate(" + width / positionWidth + "," + height / positionHeight + ")");
+    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // define colors
 // var color = d3.scaleOrdinal(["yellow", "blue", "red", "green", "orange", "purple", "gray"]);
@@ -137,7 +133,7 @@ arc.append("text")
 // add title
 arc.append("text")
   .attr("x", margin.left / 2)
-  .attr("y", 0 - (margin.top * 2.7))
+  .attr("y", 0 - (margin.top * 3.2))
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use + 6 %>px")
@@ -146,7 +142,7 @@ arc.append("text")
 // add subtitle
 arc.append("text")
   .attr("x", margin.left / 2)
-  .attr("y", 0 - (margin.top * 2.4))
+  .attr("y", 0 - (margin.top * 2.9))
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use %>px")

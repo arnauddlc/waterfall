@@ -62,7 +62,7 @@
 </style>
 
 <script>
-  
+
 var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 <% if show_export? %>
@@ -91,7 +91,7 @@ var g = svg.append("g")
 
     x.domain(datasource.map(function(d) { return d.label; }));
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
-      
+
   // add x labels
       g.append("g")
           .attr("class", "axis axis--x")
