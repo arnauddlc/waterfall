@@ -25,12 +25,12 @@
 
 <% types = ["bar", "line", "pie"] %>
 
-<div class="color-selection">
+<div class="type-selection">
   <h5>TYPE</h5>
   <% types.each do |type| %>
-    <%= link_to chart_path(chart: {chart_type: type}), method: :patch do %>
-      <div class="btn btn-primary">
-        <%= type %>
+    <%= link_to chart_path(chart: {chart_type: type}, active_tab: "design"), method: :patch do %>
+      <div class="type-button">
+        <i class="fa fa-<%= type %>-chart" aria-hidden="true"></i>
       </div>
     <% end %>
   <% end %>

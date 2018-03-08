@@ -68,9 +68,10 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
+
     margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
-    width = svg.attr("width") - margin.left - margin.right,
-    height = svg.attr("height") - margin.top - margin.bottom;
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
 
 var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
     y = d3.scaleLinear().rangeRound([height, 0]);
@@ -151,7 +152,16 @@ var line = d3.line()
       .attr("y", function(d) { return y(d.value) - 20; })
       .attr("dy", "<%= font_use %>px")
       .style("font-size", "<%= font_use %>px")
-      .text(function(d) { return d.value; });
+      .style("opacity", 0)
+      .text(function(d) { return d.value; })
+      .transition()
+      .ease(d3.easeQuad)
+      .delay(2000)
+      .on("start", function repeat() {
+        var t = d3.active(this)
+          .duration(1000)
+          .style("opacity", 1)
+      });
 
     // function for transition
     function tweenDash() {

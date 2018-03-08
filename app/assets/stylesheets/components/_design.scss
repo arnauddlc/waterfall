@@ -1,0 +1,19 @@
+.type-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid $blue;
+  margin-right: 20px;
+  background-color: $light-gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  font-size: 30px;
+  &:hover {
+    color: white;
+    border-color: $green;
+    background-color: $green;
+    cursor: pointer;
+  }
+}
