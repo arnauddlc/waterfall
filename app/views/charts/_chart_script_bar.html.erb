@@ -1,18 +1,6 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<% colors_hash = {
-  "yellow": "#FFDB29",
-  "orange": "#FD7366",
-  "red": "#F04F2B",
-  "blue": "#30C2FF",
-  "purple": "#9E60F8",
-  "green": "#3EC28F",
-  "gray": "#000000",
-  "light gray": "#F4F4F4",
-  "medium dark gray": "#1A1A1A",
-  "dark gray": "#141414"
-}
-%>
+<% colors_hash = colors_selector %>
 
 <meta charset="utf-8">
 
@@ -62,22 +50,24 @@
 </style>
 
 <script>
-  
+
 var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 <% if show_export? %>
   var marginTop = 70;
-  var marginBottom = 70;
+  var marginBottom = 170;
+  var marginLeft = 50;
   var positionHeight = 4;
 <% else %>
-  var marginTop = 40;
+  var marginTop = 30;
   var marginBottom = 40;
+  var marginLeft = 10;
   var positionHeight = 2.5;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
 
-    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 50},
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -89,7 +79,7 @@ var g = svg.append("g")
 
     x.domain(datasource.map(function(d) { return d.label; }));
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
-      
+
   // add x labels
       g.append("g")
           .attr("class", "axis axis--x")

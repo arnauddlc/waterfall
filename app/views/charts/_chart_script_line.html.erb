@@ -1,18 +1,6 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<% colors_hash = {
-  "yellow": "#FFDB29",
-  "orange": "#FD7366",
-  "red": "#F04F2B",
-  "blue": "#30C2FF",
-  "purple": "#9E60F8",
-  "green": "#3EC28F",
-  "gray": "#000000",
-  "light gray": "#F4F4F4",
-  "medium dark gray": "#1A1A1A",
-  "dark gray": "#141414"
-}
-%>
+<% colors_hash = colors_selector %>
 
 <!-- This is a custom method to toggle show/hide of export button in navbar -->
 
@@ -69,16 +57,18 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 <% if show_export? %>
   var marginTop = 70;
-  var marginBottom = 70;
+  var marginBottom = 170;
+  var marginLeft = 60;
   var positionHeight = 4;
 <% else %>
-  var marginTop = 40;
-  var marginBottom = 40;
+  var marginTop = 30;
+  var marginBottom = 55;
+  var marginLeft = 10;
   var positionHeight = 2.5;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 50},
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom;
 
@@ -89,10 +79,11 @@ var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + hei
 
 var line = d3.line()
     .x(function(d) { return x(d.label) + x.bandwidth()/2 ; })
-    .y(y(0));
-var lineFin = d3.line()
-    .x(function(d) { return x(d.label) + x.bandwidth()/2 ; })
     .y(function(d) { return y(d.value); });
+
+// var lineFin = d3.line()
+//     .x(function(d) { return x(d.label) + x.bandwidth()/2 ; })
+//     .y(function(d) { return y(d.value); });
 
     x.domain(datasource.map(function(d) { return d.label; }));
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
@@ -145,9 +136,10 @@ var lineFin = d3.line()
       .attr("d", line)
       .transition()
         .delay(300)
-        .duration(600)
+        .duration(2000)
         .ease(d3.easeQuad)
-        .attr("d", lineFin)
+        .attr("d", line)
+        .attrTween("stroke-dasharray", tweenDash);
 
     // add labels
     g.selectAll(".text")
@@ -160,5 +152,12 @@ var lineFin = d3.line()
       .attr("dy", "<%= font_use %>px")
       .style("font-size", "<%= font_use %>px")
       .text(function(d) { return d.value; });
+
+    // function for transition
+    function tweenDash() {
+        var l = this.getTotalLength(),
+            i = d3.interpolateString("0," + l, l + "," + l);
+        return function (t) { return i(t); };
+    }
 
 </script>

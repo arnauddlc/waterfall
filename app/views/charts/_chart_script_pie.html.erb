@@ -1,18 +1,6 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<% colors_hash = {
-  "yellow": "#FFDB29",
-  "orange": "#FD7366",
-  "red": "#F04F2B",
-  "blue": "#30C2FF",
-  "purple": "#9E60F8",
-  "green": "#3EC28F",
-  "gray": "#000000",
-  "light gray": "#F4F4F4",
-  "medium dark gray": "#1A1A1A",
-  "dark gray": "#141414"
-}
-%>
+<% colors_hash = colors_selector %>
 
 <!-- This is a custom method to toggle show/hide of export button in navbar -->
 
@@ -40,15 +28,11 @@ var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
   var marginBottom = 70;
   var marginLeft = 10;
   var valueRadius = 50;
-  var positionWidth = 2;
-  var positionHeight = 1.8;
 <% else %>
-  var marginTop = 40;
+  var marginTop = 30;
   var marginBottom = 40;
   var marginLeft = 50;
   var valueRadius = 10;
-  var positionWidth = 1.65;
-  var positionHeight = 2.2;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
@@ -56,7 +40,7 @@ var svg = d3.select("#chart-<%= chart.id %> > svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height"),
     radius = Math.min(width, height) / 2.8,
-    g = svg.append("g").attr("transform", "translate(" + width / positionWidth + "," + height / positionHeight + ")");
+    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // define colors
 // var color = d3.scaleOrdinal(["yellow", "blue", "red", "green", "orange", "purple", "gray"]);
@@ -102,9 +86,11 @@ data.forEach(function(d) {
 // append the path to the arc
 arc.append("path")
   .attr("d", path)
-  .attr("fill", function(d,i){
-      return color(i);
-  });
+  .attr("fill", function(d,i){ return color(i); })
+  .transition()
+  .ease(d3.easeLinear)
+  .duration(600)
+  .attrTween("d", tweenPie);
 
 // add label
 arc.append("text")
@@ -121,12 +107,21 @@ arc.append("text")
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use %>px")
-  .text(function(d) { return d.data.percentage; });
+  .style("opacity", 0)
+  .text(function(d) { return d.data.percentage; })
+  .transition()
+  .ease(d3.easeQuad)
+  .delay(600)
+  .on("start", function repeat() {
+    var t = d3.active(this)
+      .duration(1000)
+      .style("opacity", 1)
+  });
 
 // add title
 arc.append("text")
   .attr("x", margin.left / 2)
-  .attr("y", 0 - (margin.top * 2.7))
+  .attr("y", 0 - (margin.top * 3.2))
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use + 6 %>px")
@@ -135,10 +130,17 @@ arc.append("text")
 // add subtitle
 arc.append("text")
   .attr("x", margin.left / 2)
-  .attr("y", 0 - (margin.top * 2.4))
+  .attr("y", 0 - (margin.top * 2.9))
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use %>px")
   .html("<%= chart.subtitle if show_export? %>");
+
+// function for transition
+function tweenPie(b) {
+  b.innerRadius = 0;
+  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
+  return function(t) { return path(i(t)); };
+}
 
 </script>
