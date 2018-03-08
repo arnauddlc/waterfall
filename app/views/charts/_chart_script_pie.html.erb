@@ -102,9 +102,11 @@ data.forEach(function(d) {
 // append the path to the arc
 arc.append("path")
   .attr("d", path)
-  .attr("fill", function(d,i){
-      return color(i);
-  });
+  .attr("fill", function(d,i){ return color(i); })
+  .transition()
+  .ease(d3.easeLinear)
+  .duration(700)
+  .attrTween("d", tweenPie);
 
 // add label
 arc.append("text")
@@ -121,7 +123,16 @@ arc.append("text")
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use %>px")
-  .text(function(d) { return d.data.percentage; });
+  .style("opacity", 0)
+  .text(function(d) { return d.data.percentage; })
+  .transition()
+  .ease(d3.easeLinear)
+  .delay(700)
+  .on("start", function repeat() {
+    var t = d3.active(this)
+      .duration(1000)
+      .style("opacity", 1)
+  });
 
 // add title
 arc.append("text")
@@ -140,5 +151,12 @@ arc.append("text")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use %>px")
   .html("<%= chart.subtitle if show_export? %>");
+
+// function for transition
+function tweenPie(b) {
+  b.innerRadius = 0;
+  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
+  return function(t) { return path(i(t)); };
+}
 
 </script>
