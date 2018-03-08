@@ -89,7 +89,7 @@ arc.append("path")
   .attr("fill", function(d,i){ return color(i); })
   .transition()
   .ease(d3.easeLinear)
-  .duration(700)
+  .duration(600)
   .attrTween("d", tweenPie);
 
 // add label
@@ -110,8 +110,8 @@ arc.append("text")
   .style("opacity", 0)
   .text(function(d) { return d.data.percentage; })
   .transition()
-  .ease(d3.easeLinear)
-  .delay(700)
+  .ease(d3.easeQuad)
+  .delay(600)
   .on("start", function repeat() {
     var t = d3.active(this)
       .duration(1000)
