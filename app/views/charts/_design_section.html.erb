@@ -30,7 +30,7 @@ gray: "#141414" } %>
 
 <% types = ["bar", "line", "pie"] %>
 
-<div class="color-selection">
+<div class="chart-type">
   <h5>TYPE</h5>
   <% types.each do |type| %>
     <%= link_to chart_path(chart: {chart_type: type}), method: :patch do %>
