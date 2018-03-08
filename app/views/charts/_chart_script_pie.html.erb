@@ -93,6 +93,12 @@ var arc = g.selectAll(".arc")
   .enter().append("g")
   .attr("class", "arc");
 
+// convert value to percentage
+var tots = d3.sum(data, function(d) { return d.value; });
+data.forEach(function(d) {
+    d.percentage = (d.value / tots * 100).toFixed(2);
+});
+
 // append the path to the arc
 arc.append("path")
   .attr("d", path)
@@ -115,7 +121,7 @@ arc.append("text")
   .attr("text-anchor", "middle")
   .attr("font-family", "Arial")
   .style("font-size", "<%= font_use %>px")
-  .text(function(d) { return d.data.value; });
+  .text(function(d) { return d.data.percentage; });
 
 // add title
 arc.append("text")
