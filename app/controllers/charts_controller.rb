@@ -4,6 +4,8 @@ class ChartsController < ApplicationController
   # helper method to handle guest or logged in users
   helper_method :current_or_guest_user
   helper_method :font_use
+  helper_method :colors_selector
+
 
   def waterfallplayground
   end
@@ -17,6 +19,7 @@ class ChartsController < ApplicationController
     @chart = Chart.new
     @chart.chart_type = params[:type]
     @chart.user = current_or_guest_user
+    @chart.color = "gray" if @chart.chart_type == "waterfall"
     # @chart.save
     if @chart.save
       if @chart.chart_type == "waterfall"
@@ -42,13 +45,15 @@ class ChartsController < ApplicationController
   end
 
   def edit
+    @active_tab = params[:active_tab]
     @dataset = Dataset.new
   end
 
   def update
+    # raise
     if @chart.update(chart_params)
       respond_to do |format|
-        format.html { redirect_to edit_chart_path(@chart)}
+        format.html { redirect_to edit_chart_path(@chart, active_tab: params[:active_tab])}
         format.js # <-- will render `app/views/charts/create.js.erb`
       end
     # else ?
@@ -63,6 +68,16 @@ class ChartsController < ApplicationController
   def font_use
     return @chart.font_size if show_export?
     return 8
+  end
+
+  def colors_selector
+    colors = { yellow: "#FFDB29",
+               orange: "#FD7366",
+               blue: "#30C2FF",
+               purple: "#9E60F8",
+               green: "#3EC28F",
+               gray: "#141414" }
+    return colors
   end
 
   private
@@ -86,14 +101,13 @@ class ChartsController < ApplicationController
     offsets = [ 0 , 10 , 9 , 0 ]
     values_user = [ "10", "2", "-3", "e"]
     i=0
-    4.times do 
+    4.times do
       new_dataset = Dataset.new(label: labels[i], value: values[i], serietype: serietypes[i], offset: offsets[i], value_user: values_user[i])
       new_dataset.chart = @chart
       new_dataset.save
       i += 1
     end
   end
-
 
   def set_chart
     @chart = Chart.find(params[:id])
