@@ -56,11 +56,11 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 <% if show_export? %>
   var marginTop = 70;
   var marginBottom = 170;
-  var marginLeft = 50;
+  var marginLeft = 60;
   var positionHeight = 4;
 <% else %>
   var marginTop = 30;
-  var marginBottom = 40;
+  var marginBottom = 55;
   var marginLeft = 10;
   var positionHeight = 2.5;
 <% end %>
@@ -74,8 +74,7 @@ var svg = d3.select("#chart-<%= chart.id %> > svg"),
 var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
     y = d3.scaleLinear().rangeRound([height, 0]);
 
-var g = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + height / positionHeight + ")");
 
     x.domain(datasource.map(function(d) { return d.label; }));
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);

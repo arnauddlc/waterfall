@@ -68,9 +68,10 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
+
     margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
-    width = svg.attr("width") - margin.left - margin.right,
-    height = svg.attr("height") - margin.top - margin.bottom;
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
 
 var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
     y = d3.scaleLinear().rangeRound([height, 0]);
