@@ -69,16 +69,18 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 <% if show_export? %>
   var marginTop = 70;
-  var marginBottom = 70;
+  var marginBottom = 170;
+  var marginLeft = 60;
   var positionHeight = 4;
 <% else %>
-  var marginTop = 40;
+  var marginTop = 30;
   var marginBottom = 40;
+  var marginLeft = 10;
   var positionHeight = 2.5;
 <% end %>
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 50},
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
     width = svg.attr("width") - margin.left - margin.right,
     height = svg.attr("height") - margin.top - margin.bottom;
 
