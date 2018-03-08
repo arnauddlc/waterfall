@@ -1,3 +1,16 @@
 .notes {
   margin-top: 30px;
+  .hidden {
+    display: none;
+  }
+  .fa.fa-pencil {
+    padding-left: 2px;
+    color: rgba(51,51,51,1);
+    font-size: 14px;
+    &:hover {
+      cursor: pointer;
+      color: rgba(51,51,51,0.85);
+      text-decoration: none;
+    }
+  }
 }

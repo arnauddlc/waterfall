@@ -1,4 +1,19 @@
-<%= simple_form_for(@chart, remote: true) do |f| %>
-  <%= f.input :notes %>
-  <%= f.button :submit %>
+<div class="notes">
+  <h5>NOTES</h5>
+  <p><%= @chart.notes %>
+    <i class="fa fa-pencil" aria-hidden="true" id="pencil-notes-edit"></i>
+  </p>
+</div>
+
+<%= content_for(:after_js) do %>
+  <script>
+    const formNotes = document.getElementById('notes-form');
+    const notes = document.getElementById('chart-notes');
+      const pencilNotes = document.getElementById("pencil-notes-edit");
+      pencilNotes.addEventListener("click", (event) => {
+        event.preventDefault;
+        formNotes.classList.toggle("hidden");
+        notes.classList.toggle("hidden")
+      });
+  </script>
 <% end %>

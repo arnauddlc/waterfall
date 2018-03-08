@@ -2,6 +2,10 @@ newTitles = "<%= j render 'charts/title_section', chart: @chart %>";
 titles = document.getElementById('chart-titles')
 titles.innerHTML = newTitles;
 
+newNotes = "<%= j render 'charts/notes_section', chart: @chart %>";
+notes = document.getElementById('chart-notes')
+notes.innerHTML = newNotes;
+
 // inputBox = document.getElementById('chart_title');
 // inputBox.value = "";
 
