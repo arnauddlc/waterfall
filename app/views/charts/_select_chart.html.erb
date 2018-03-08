@@ -33,13 +33,29 @@
     <div class="card">
       <div class="image-container">
        <%= link_to charts_path(type: "pie"), method: :post do %>
-         <div class="card-image" style="background-image: url('<%= image_path 'bar_template.png' %>')">
+         <div class="card-image" style="background-image: url('<%= image_path 'pie_template.png' %>')">
          </div>
        <% end %>
      </div>
       <div class="body">
         <div class="card-title">
           <%= link_to "Pie Chart", charts_path(type: "pie"), method: :post, class:"chart-title" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 col-md-3">
+    <div class="card">
+      <div class="image-container">
+        <%= link_to charts_path(type: "waterfall"), method: :post do %>
+          <div class="card-image" style="background-image: url('<%= image_path 'waterfall_template.png' %>')">
+          </div>
+        <% end %>
+      </div>
+      <div class="body">
+        <div class="card-title">
+          <%= link_to "Waterfall Chart (BETA)", charts_path(type: "waterfall"), method: :post, class:"chart-title" %>
         </div>
       </div>
     </div>

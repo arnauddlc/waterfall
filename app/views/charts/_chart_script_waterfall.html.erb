@@ -1,0 +1,187 @@
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<% colors_hash = {
+  "yellow": "#FFDB29",
+  "orange": "#FD7366",
+  "red": "#F04F2B",
+  "blue": "#30C2FF",
+  "purple": "#9E60F8",
+  "green": "#3EC28F",
+  "gray": "#000000",
+  "light gray": "#F4F4F4",
+  "medium dark gray": "#1A1A1A",
+  "dark gray": "#141414"
+}
+%>
+
+  <!-- This is a custom method to toggle show/hide of export button in navbar -->
+
+<meta charset="utf-8">
+
+<style>
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+  .axis text {
+    font-family: "Arial";
+    font-size: <%= font_use - 2 %>px;
+    transform: rotate(-45deg);
+    text-anchor: end;
+  }
+
+	.bar {
+	  fill: #3EC28F;
+	}
+
+	#bar-baseline-chart-<%= chart.id %> {
+		fill: <%= colors_hash[chart.color.to_sym]  %>;
+	}
+
+	#bar-plus-chart-<%= chart.id %> {
+		fill: green;
+	}
+
+	#bar-less-chart-<%= chart.id %> {
+		fill : red;
+	}
+
+	.bar {
+		opacity: 1;
+	}
+
+	.bar:hover {
+	  opacity: 0.8;
+	}
+
+  .axis--x .tick line{
+      visibility:hidden;
+    }
+
+	.axis--y {
+	  display: none;
+	}
+
+  .value {
+    fill:white;
+    font: <%= font_use %>px;
+    font-weight: 400;
+    text-anchor: middle;
+  }
+
+  .value-baseline {
+  	fill: black;
+  	font-weight: 800;
+  }
+
+</style>
+
+<script>
+
+var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>
+
+<% if show_export? %>
+  var marginTop = 70;
+  var marginBottom = 70;
+<% else %>
+  var marginTop = 40;
+  var marginBottom = 40;
+<% end %>
+
+
+var svg = d3.select("#chart-<%= chart.id %> > svg"),
+                    
+    margin = {top: marginTop , right: 10, bottom: marginBottom, left: 10},
+
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
+
+var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    y = d3.scaleLinear().rangeRound([height, 0]);
+
+var g = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    x.domain(datasource.map(function(d) { return d.label; }));
+    y.domain([ 0, d3.max(datasource, function(d) { return (d.value + d.offset); })]);
+
+    // add x labels
+    g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSizeOuter(0))
+
+    // add y labels (vertical axis)
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10))
+      .append("text")
+        .attr("font-family", "Arial")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("font-size", "<%= font_use %>px")
+        .attr("text-anchor", "end")
+        .text("value");
+
+    // add title    
+    g.append("text")
+      .attr("x", (width / 2))
+      .attr("y", 0 - (margin.top / 2))
+      .attr("text-anchor", "middle")
+      .attr("font-family", "Arial")
+      .style("font-size", "<%= font_use + 6 %>px")
+      .text("<%= chart.title if show_export? %>");
+
+    // add subtitle
+    g.append("text")
+      .attr("x", (width / 2))
+      .attr("y", 0 - (margin.top / 2) + 25)
+      .attr("text-anchor", "middle")
+      .attr("font-family", "Arial")
+      .style("font-size", "<%= font_use %>px")
+      .text("<%= chart.subtitle if show_export? %>");
+
+    // add bars
+    g.selectAll(".bar")
+      .data(datasource)
+      .enter().append("rect")
+        .attr("font-family", "Arial")
+        .attr("width", x.bandwidth())
+        .attr("x", function(d) { return x(d.label); })
+        .attr("y", function(d) { return height - y(d.value); }) // starting point of transition
+        .attr("height", 0) // starting point of transitio
+        .attr("class", function(d) {return ("bar bar-" + d.serietype); })
+        .attr("id", function(d) { return ("bar-" + d.serietype +"-chart-<%= chart.id %>"); })
+        .transition()
+          .delay(300)
+          .duration(600)
+          .ease(d3.easeQuad)
+          .attr("y", function(d) { return (y(d.value + d.offset)); })
+          .attr("height", function(d) { return height - y(d.value); });
+
+    //add labels    
+    g.selectAll(".text")
+      .data(datasource)
+      .enter().append("text")
+      .attr("opacity", 0)
+      .attr("font-family", "Arial")
+      .attr("class", function(d) { return "value value-" + d.serietype })
+      .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
+      .attr("y", function(d) { 
+      	if (d.serietype === "less") { return y(d.offset) - (<%= font_use %> *3/2); }
+      	else if (d.serietype === "baseline") { return y(d.value) - ( <%= font_use %> *3/2)}
+      	else { return y(d.value + d.offset) + 1;} })
+      .attr("dy", "<%= font_use %>px")
+      .style("font-size", "<%= font_use %>px")
+      .text(function(d) { 
+      	if (d.serietype === "less") { return "- " + d.value;}
+      	else { return d.value; } })
+      .transition()
+        .delay(900)
+        .attr("opacity", 1);
+      
+</script>
