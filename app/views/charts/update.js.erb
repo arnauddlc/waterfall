@@ -1,13 +1,15 @@
-newTitles = "<%= j render 'charts/title_section', chart: @chart %>";
-titles = document.getElementById('chart-titles')
-titles.innerHTML = newTitles;
+function newTitles() {
+  const newTitles = "<%= j render 'charts/title_section', chart: @chart %>";
+  const titles = document.getElementById('chart-titles');
+  titles.innerHTML = newTitles;
+}
 
-newNotes = "<%= j render 'charts/notes_section', chart: @chart %>";
-notes = document.getElementById('chart-notes')
-notes.innerHTML = newNotes;
+function newNotes() {
+  const newNotes = "<%= j @chart.notes %>";
+  const notes = document.getElementById('notes-content');
+  notes.innerHTML = newNotes;
+}
 
-// inputBox = document.getElementById('chart_title');
-// inputBox.value = "";
-
-// inputBoxTwo = document.getElementById('chart_subtitle');
-// inputBoxTwo.value = "";
+newTitles();
+newNotes();
+toggleNotes(formNotes, notes)

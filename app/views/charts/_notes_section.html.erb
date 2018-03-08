@@ -1,7 +1,8 @@
 <div class="notes">
-  <p><%= @chart.notes %>
-    <i class="fa fa-pencil" aria-hidden="true" id="pencil-notes-edit"></i>
+  <p id="notes-content">
+    <%= @chart.notes %>
   </p>
+  <i class="fa fa-pencil" aria-hidden="true" id="pencil-notes-edit"></i>
 </div>
 
 <%= content_for(:after_js) do %>
@@ -11,8 +12,12 @@
       const pencilNotes = document.getElementById("pencil-notes-edit");
       pencilNotes.addEventListener("click", (event) => {
         event.preventDefault;
-        formNotes.classList.toggle("hidden");
-        notes.classList.toggle("hidden")
+        toggleNotes(formNotes, notes)
       });
+
+        function toggleNotes(formNotes, notes){
+          formNotes.classList.toggle("hidden");
+          notes.classList.toggle("hidden")
+        }
   </script>
 <% end %>
