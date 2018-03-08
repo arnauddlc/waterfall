@@ -14,12 +14,9 @@
 }
 
 .all-titles {
-  margin-top: 25px;
+  margin-top: 30px;
   .hidden {
     display: none;
-  }
-  .h4 {
-    margin-top: 0;
   }
   .fa.fa-pencil {
     padding-left: 2px;
@@ -31,7 +28,11 @@
       text-decoration: none;
     }
   }
+  h4 {
+    margin-top: 0;
+  }
 }
+
 
 // Table section
 #data-sets-table {
