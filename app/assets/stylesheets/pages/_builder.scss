@@ -8,31 +8,6 @@
 .chart-area {
   padding-left: 15px;
 }
-// Title section - also _title_section.html.erb
-#titles-form {
-  margin-top: 25px;
-}
-
-.all-titles {
-  margin-top: 30px;
-  .hidden {
-    display: none;
-  }
-  .fa.fa-pencil {
-    padding-left: 2px;
-    color: rgba(51,51,51,1);
-    font-size: 14px;
-    &:hover {
-      cursor: pointer;
-      color: rgba(51,51,51,0.85);
-      text-decoration: none;
-    }
-  }
-  h4 {
-    margin-top: 0;
-  }
-}
-
 
 // Table section
 #data-sets-table {
@@ -89,7 +64,7 @@
 }
 
 @media (min-width: 770px) {
-  /* For a screen < 960px, this CSS will be read */
+  /* For a screen > 770px, this CSS will be read */
   .chart-area {
   height: 100vh;
   width: 100%;
@@ -97,7 +72,7 @@
 }
 
 @media (max-width: 770px) {
-  /* For a screen < 760px, this CSS will be read */
+  /* For a screen < 770px, this CSS will be read */
   .main-container {
     display: flex;
     flex-direction: column-reverse;
@@ -113,17 +88,3 @@
     margin-bottom: 50px;
   }
 }
-
-// @media (max-width: 540px) {
-//   /* For a screen < 540px, this CSS will be read */
-//   .main-container {
-//     display: flex;
-//     flex-direction: column-reverse;
-//     justify-content: center;
-//     align-items: center;
-//   }
-//   .half-half {
-//   background: linear-gradient(to bottom, $light-gray 50%, white 50%);
-//   padding: 0px 50px;
-//   }
-// }
