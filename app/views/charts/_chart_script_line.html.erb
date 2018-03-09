@@ -170,4 +170,22 @@ var line = d3.line()
         return function (t) { return i(t); };
     }
 
+    // make chart responsive
+    function responsivefy(svg) {
+
+      // get container and svg aspect ratio
+      var container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")),
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
+
+      // add viewBox and preserveAspectRatio properties
+      svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMinYMid")
+        .attr("width", '')
+        .attr("height", '')
+    }
+
+    svg.call(responsivefy);
+
 </script>

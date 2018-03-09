@@ -21,26 +21,26 @@
 
 <script>
 
-var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
+  var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
-<% if show_export? %>
+  <% if show_export? %>
   var marginTop = 70;
   var marginBottom = 70;
   var marginLeft = 10;
   var valueRadius = 50;
-<% else %>
+  <% else %>
   var marginTop = 30;
   var marginBottom = 40;
   var marginLeft = 50;
   var valueRadius = 10;
-<% end %>
+  <% end %>
 
-var svg = d3.select("#chart-<%= chart.id %> > svg"),
-    margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
-    width = +svg.attr("width"),
-    height = +svg.attr("height"),
-    radius = Math.min(width, height) / 2.8,
-    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+  var svg = d3.select("#chart-<%= chart.id %> > svg"),
+  margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
+  width = +svg.attr("width"),
+  height = +svg.attr("height"),
+  radius = Math.min(width, height) / 2.8,
+  g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // define colors
 // var color = d3.scaleOrdinal(["yellow", "blue", "red", "green", "orange", "purple", "gray"]);
@@ -49,92 +49,92 @@ var N = <%= chart.datasets.size %>;
 console.log(N);
 var colorRange = ['<%= colors_hash[chart.color.to_sym] %>', '#FFF'];
 var color = d3.scaleLinear()
-  .domain([0, N])
-  .range(colorRange);
+.domain([0, N])
+.range(colorRange);
 
 // generate pie
 var pie = d3.pie()
-    .sort(null)
-    .value(function(d) { return d.value; });
+.sort(null)
+.value(function(d) { return d.value; });
 
 // generate arc
 var path = d3.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
+.outerRadius(radius - 10)
+.innerRadius(0);
 
 // generate another arc to position labels
 var label = d3.arc()
-    .outerRadius(radius + 10)
-    .innerRadius(radius);
+.outerRadius(radius + 10)
+.innerRadius(radius);
 
 var value = d3.arc()
-    .outerRadius(radius - 50)
-    .innerRadius(radius - valueRadius);
+.outerRadius(radius - 50)
+.innerRadius(radius - valueRadius);
 
 // append g elements to arc
 var arc = g.selectAll(".arc")
-  .data(pie(data))
-  .enter().append("g")
-  .attr("class", "arc");
+.data(pie(data))
+.enter().append("g")
+.attr("class", "arc");
 
 // convert value to percentage
 var tots = d3.sum(data, function(d) { return d.value; });
 data.forEach(function(d) {
-    d.percentage = (d.value / tots * 100).toFixed(2);
+  d.percentage = (d.value / tots * 100).toFixed(2);
 });
 
 // append the path to the arc
 arc.append("path")
-  .attr("d", path)
-  .attr("fill", function(d,i){ return color(i); })
-  .transition()
-  .ease(d3.easeLinear)
-  .duration(600)
-  .attrTween("d", tweenPie);
+.attr("d", path)
+.attr("fill", function(d,i){ return color(i); })
+.transition()
+.ease(d3.easeLinear)
+.duration(600)
+.attrTween("d", tweenPie);
 
 // add label
 arc.append("text")
-  .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
-  .attr("dy", "0.35em")
-  .attr("text-anchor", "middle")
-  .attr("font-family", "Arial")
-  .style("font-size", "<%= font_use %>px")
-  .text(function(d) { return d.data.label; });
+.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+.attr("dy", "0.35em")
+.attr("text-anchor", "middle")
+.attr("font-family", "Arial")
+.style("font-size", "<%= font_use %>px")
+.text(function(d) { return d.data.label; });
 
 arc.append("text")
-  .attr("transform", function(d) { return "translate(" + value.centroid(d) + ")"; })
-  .attr("dy", "0.35em")
-  .attr("text-anchor", "middle")
-  .attr("font-family", "Arial")
-  .style("font-size", "<%= font_use %>px")
-  .style("opacity", 0)
-  .text(function(d) { return d.data.percentage; })
-  .transition()
-  .ease(d3.easeQuad)
-  .delay(600)
-  .on("start", function repeat() {
-    var t = d3.active(this)
-      .duration(1000)
-      .style("opacity", 1)
-  });
+.attr("transform", function(d) { return "translate(" + value.centroid(d) + ")"; })
+.attr("dy", "0.35em")
+.attr("text-anchor", "middle")
+.attr("font-family", "Arial")
+.style("font-size", "<%= font_use %>px")
+.style("opacity", 0)
+.text(function(d) { return d.data.percentage; })
+.transition()
+.ease(d3.easeQuad)
+.delay(600)
+.on("start", function repeat() {
+  var t = d3.active(this)
+  .duration(1000)
+  .style("opacity", 1)
+});
 
 // add title
 arc.append("text")
-  .attr("x", margin.left / 2)
-  .attr("y", 0 - (margin.top * 3.2))
-  .attr("text-anchor", "middle")
-  .attr("font-family", "Arial")
-  .style("font-size", "<%= font_use + 6 %>px")
-  .text("<%= chart.title if show_export? %>");
+.attr("x", margin.left / 2)
+.attr("y", 0 - (margin.top * 3.2))
+.attr("text-anchor", "middle")
+.attr("font-family", "Arial")
+.style("font-size", "<%= font_use + 6 %>px")
+.text("<%= chart.title if show_export? %>");
 
 // add subtitle
 arc.append("text")
-  .attr("x", margin.left / 2)
-  .attr("y", 0 - (margin.top * 2.9))
-  .attr("text-anchor", "middle")
-  .attr("font-family", "Arial")
-  .style("font-size", "<%= font_use %>px")
-  .html("<%= chart.subtitle if show_export? %>");
+.attr("x", margin.left / 2)
+.attr("y", 0 - (margin.top * 2.9))
+.attr("text-anchor", "middle")
+.attr("font-family", "Arial")
+.style("font-size", "<%= font_use %>px")
+.html("<%= chart.subtitle if show_export? %>");
 
 // function for transition
 function tweenPie(b) {
@@ -142,5 +142,23 @@ function tweenPie(b) {
   var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
   return function(t) { return path(i(t)); };
 }
+
+// make chart responsive
+function responsivefy(svg) {
+
+  // get container and svg aspect ratio
+  var container = d3.select(svg.node().parentNode),
+  width = parseInt(svg.style("width")),
+  height = parseInt(svg.style("height")),
+  aspect = width / height;
+
+  // add viewBox and preserveAspectRatio properties
+  svg.attr("viewBox", "0 0 " + width + " " + height)
+  .attr("preserveAspectRatio", "xMinYMid")
+  .attr("width", '')
+  .attr("height", '')
+}
+
+svg.call(responsivefy);
 
 </script>

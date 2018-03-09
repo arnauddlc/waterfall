@@ -84,7 +84,7 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>
 
 
 var svg = d3.select("#chart-<%= chart.id %> > svg"),
-                    
+
     margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
 
     width = +svg.attr("width") - margin.left - margin.right,
@@ -117,7 +117,7 @@ var g = svg.append("g")
         .attr("text-anchor", "end")
         .text("value");
 
-    // add title    
+    // add title
     g.append("text")
       .attr("x", (width / 2))
       .attr("y", 0 - (margin.top / 2))
@@ -153,7 +153,7 @@ var g = svg.append("g")
           .attr("y", function(d) { return (y(d.value + d.offset)); })
           .attr("height", function(d) { return height - y(d.value); });
 
-    //add labels    
+    //add labels
     g.selectAll(".text")
       .data(datasource)
       .enter().append("text")
@@ -161,17 +161,35 @@ var g = svg.append("g")
       .attr("font-family", "Arial")
       .attr("class", function(d) { return "value value-" + d.serietype })
       .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
-      .attr("y", function(d) { 
+      .attr("y", function(d) {
       	if (d.serietype === "less") { return y(d.offset) - (<%= font_use %> *3/2); }
       	else if (d.serietype === "baseline") { return y(d.value) - ( <%= font_use %> *3/2)}
       	else { return y(d.value + d.offset) + 1;} })
       .attr("dy", "<%= font_use %>px")
       .style("font-size", "<%= font_use %>px")
-      .text(function(d) { 
+      .text(function(d) {
       	if (d.serietype === "less") { return "- " + d.value;}
       	else { return d.value; } })
       .transition()
         .delay(900)
         .attr("opacity", 1);
-      
+
+    // make chart responsive
+    function responsivefy(svg) {
+
+      // get container and svg aspect ratio
+      var container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")),
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
+
+      // add viewBox and preserveAspectRatio properties
+      svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMinYMid")
+        .attr("width", '')
+        .attr("height", '')
+    }
+
+    svg.call(responsivefy);
+
 </script>
