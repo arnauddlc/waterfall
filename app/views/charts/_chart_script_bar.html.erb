@@ -107,7 +107,7 @@ var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + hei
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_use + 6 %>px")
-      .text("<%= chart.title if show_export? %>");
+      .text("<%= chart.title.html_safe if show_export? %>");
 
     // add subtitle
     g.append("text")
@@ -116,7 +116,7 @@ var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + hei
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_use %>px")
-      .html("<%= chart.subtitle if show_export? %>");
+      .html("<%= chart.subtitle.html_safe if show_export? %>");
 
     // add bars
     g.selectAll(".bar")
