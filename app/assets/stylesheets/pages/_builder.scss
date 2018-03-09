@@ -7,7 +7,8 @@
 }
 .chart-area {
   display: flex;
-  padding-left: 15px;
+  justify-content: center;
+  padding-left: 35px;
 }
 
 // Table section
@@ -68,7 +69,7 @@
   /* For a screen > 770px, this CSS will be read */
   .chart-area {
   height: 100vh;
-  width: 500px;
+  // width: 500px;
   }
 }
 
