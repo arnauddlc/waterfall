@@ -62,30 +62,55 @@
   }
 
   .value-baseline {
-  	fill: black;
-  	font-weight: 800;
+    fill: black;
+    font-weight: 800;
   }
 
 </style>
 
 <script>
 
-var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>
-
+  // set up the margins according to page index or chart_builder
 <% if show_export? %>
   var marginTop = 70;
   var marginBottom = 170;
-  var marginLeft = 60;
+  var marginSide = 50;
 <% else %>
   var marginTop = 30;
   var marginBottom = 40;
-  var marginLeft = 10;
+  var marginSide = 10;
 <% end %>
 
+    // make chart responsive
+    function responsivefy(svg) {
 
-var svg = d3.select("#chart-<%= chart.id %> > svg"),
+      // get container and svg aspect ratio
+      var container = d3.select(svg.node().parentNode),
+        widthSvg = parseInt(svg.style("width")),
+        heightSvg = parseInt(svg.style("height")),
+        aspect = widthSvg / heightSvg;
 
-    margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
+      // add viewBox and preserveAspectRatio properties
+      svg.attr("viewBox", "0 0 " + widthSvg + " " + heightSvg)
+        .attr("preserveAspectRatio", "xMinYMid")
+        .attr("width", widthSvg)
+        .attr("height", heightSvg);
+
+        console.log(heightSvg);
+        console.log(widthSvg);
+    }
+
+
+var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>
+
+var svg = d3.select("#chart-<%= chart.id %> > svg");
+
+  svg.call(responsivefy);
+
+
+var svg = svg,
+ 
+    margin = {top: marginTop , right: marginSide, bottom: marginBottom, left: marginSide},
 
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
@@ -162,34 +187,16 @@ var g = svg.append("g")
       .attr("class", function(d) { return "value value-" + d.serietype })
       .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
       .attr("y", function(d) {
-      	if (d.serietype === "less") { return y(d.offset) - (<%= font_use %> *3/2); }
-      	else if (d.serietype === "baseline") { return y(d.value) - ( <%= font_use %> *3/2)}
-      	else { return y(d.value + d.offset) + 1;} })
+        if (d.serietype === "less") { return y(d.offset) - (<%= font_use %> *3/2); }
+        else if (d.serietype === "baseline") { return y(d.value) - ( <%= font_use %> *3/2)}
+        else { return y(d.value + d.offset) + 1;} })
       .attr("dy", "<%= font_use %>px")
       .style("font-size", "<%= font_use %>px")
       .text(function(d) {
-      	if (d.serietype === "less") { return "- " + d.value;}
-      	else { return d.value; } })
+        if (d.serietype === "less") { return "- " + d.value;}
+        else { return d.value; } })
       .transition()
         .delay(900)
         .attr("opacity", 1);
-
-    // make chart responsive
-    function responsivefy(svg) {
-
-      // get container and svg aspect ratio
-      var container = d3.select(svg.node().parentNode),
-        width = parseInt(svg.style("width")),
-        height = parseInt(svg.style("height")),
-        aspect = width / height;
-
-      // add viewBox and preserveAspectRatio properties
-      svg.attr("viewBox", "0 0 " + width + " " + height)
-        .attr("preserveAspectRatio", "xMinYMid")
-        .attr("width", '')
-        .attr("height", '')
-    }
-
-    svg.call(responsivefy);
 
 </script>

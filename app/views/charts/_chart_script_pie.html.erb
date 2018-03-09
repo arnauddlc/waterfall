@@ -20,9 +20,7 @@
 </style>
 
 <script>
-
-  var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
-
+ // set margins
   <% if show_export? %>
   var marginTop = 70;
   var marginBottom = 70;
@@ -35,7 +33,14 @@
   var valueRadius = 10;
   <% end %>
 
-  var svg = d3.select("#chart-<%= chart.id %> > svg"),
+  var data = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
+
+
+  var svg = d3.select("#chart-<%= chart.id %> > svg");
+
+  svg.call(responsivefy);
+
+  svg = svg,
   margin = {top: marginTop , right: 10, bottom: marginBottom, left: marginLeft},
   width = +svg.attr("width"),
   height = +svg.attr("height"),
@@ -148,17 +153,16 @@ function responsivefy(svg) {
 
   // get container and svg aspect ratio
   var container = d3.select(svg.node().parentNode),
-  width = parseInt(svg.style("width")),
-  height = parseInt(svg.style("height")),
-  aspect = width / height;
+  widthSvg = parseInt(svg.style("width")),
+  heightSvg = parseInt(svg.style("height")),
+  aspect = widthSvg / heightSvg;
 
   // add viewBox and preserveAspectRatio properties
-  svg.attr("viewBox", "0 0 " + width + " " + height)
+  svg.attr("viewBox", "0 0 " + widthSvg + " " + heightSvg)
   .attr("preserveAspectRatio", "xMinYMid")
-  .attr("width", '')
-  .attr("height", '')
+  .attr("width", widthSvg)
+  .attr("height", heightSvg)
 }
 
-svg.call(responsivefy);
 
 </script>
