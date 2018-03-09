@@ -2,7 +2,7 @@
 <%= simple_form_for([chart, dataset], remote: true) do |f| %>
   <div class="table-entry">
     <div class="left-form">
-      <%= f.input :label, placeholder: 'Label', label: false %>
+      <%= f.input :label, placeholder: 'Label', label: false, autofocus: true %>
     </div>
     <div class="right-form">
       <% if chart.chart_type == "waterfall" %>
