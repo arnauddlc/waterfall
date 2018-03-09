@@ -6,6 +6,7 @@
   padding: 0px 50px;
 }
 .chart-area {
+  display: flex;
   padding-left: 15px;
 }
 
@@ -67,7 +68,7 @@
   /* For a screen > 770px, this CSS will be read */
   .chart-area {
   height: 100vh;
-  width: 100%;
+  width: 500px;
   }
 }
 

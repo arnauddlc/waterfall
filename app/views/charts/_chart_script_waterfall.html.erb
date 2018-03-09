@@ -74,7 +74,7 @@
 <% if show_export? %>
   var marginTop = 70;
   var marginBottom = 170;
-  var marginSide = 60;
+  var marginSide = 50;
 <% else %>
   var marginTop = 30;
   var marginBottom = 40;
@@ -95,6 +95,9 @@
         .attr("preserveAspectRatio", "xMinYMid")
         .attr("width", widthSvg)
         .attr("height", heightSvg);
+
+        console.log(heightSvg);
+        console.log(widthSvg);
     }
 
 
