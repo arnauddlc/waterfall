@@ -108,8 +108,27 @@
   }
 }
 
-.fa-bars:before {
+.navbar-waterfall-dropdown-menu li.export > a {
+  color: $green !important;
+  font-weight: bolder !important;
+  opacity: 1;
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.fa-bars {
   color: white;
+}
+
+// CSS for Font Awesome download button - is turned off now
+.fa-arrow-circle-down {
+  color: white;
+  padding-right: 5px;
+  transition: all 0.25s ease;
+  &:hover {
+    color: $green;
+  }
 }
 
 .avatar_initials {
