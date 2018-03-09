@@ -24,7 +24,7 @@
   <% if show_export? %>
   var marginTop = 70;
   var marginBottom = 70;
-  var marginLeft = 10;
+  var marginLeft = 0;
   var valueRadius = 50;
   <% else %>
   var marginTop = 30;
@@ -125,8 +125,8 @@ arc.append("text")
 
 // add title
 arc.append("text")
-.attr("x", margin.left / 2)
-.attr("y", 0 - (margin.top * 3.2))
+.attr("x", (margin.left / 2) + 1 )
+.attr("y", 0 - (margin.top * 3.2) + 2)
 .attr("text-anchor", "middle")
 .attr("font-family", "Arial")
 .style("font-size", "<%= font_use + 6 %>px")

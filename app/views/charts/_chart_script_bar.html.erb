@@ -55,7 +55,7 @@ var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>;
 
 <% if show_export? %>
   var marginTop = 70;
-  var marginBottom = 170;
+  var marginBottom = 100;
   var marginSide = 50;
   var positionHeight = 4;
 <% else %>
@@ -82,28 +82,28 @@ var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + hei
     x.domain(datasource.map(function(d) { return d.label; }));
     y.domain([0, d3.max(datasource, function(d) { return d.value; })]);
 
-  // add x labels
-      g.append("g")
-          .attr("class", "axis axis--x")
-          .attr("transform", "translate(0," + height + ")")
-          .call(d3.axisBottom(x).tickSizeOuter(0))
+    // add x labels
+    g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSizeOuter(0))
 
-      // add y labels (vertical axis)
-      g.append("g")
-          .attr("class", "axis axis--y")
-          .call(d3.axisLeft(y).ticks(10))
-        .append("text")
-          .attr("font-family", "Arial")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("font-size", " <%= font_use %>px")
-          .attr("text-anchor", "end")
-          .text("value");
+    // add y labels (vertical axis)
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10))
+      .append("text")
+        .attr("font-family", "Arial")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("font-size", " <%= font_use %>px")
+        .attr("text-anchor", "end")
+        .text("value");
 
     // add title
     g.append("text")
       .attr("x", (width / 2))
-      .attr("y", 0 - (margin.top / 2) - 12)
+      .attr("y", 0 - (margin.top / 2) - 20)
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_use + 6 %>px")
@@ -112,7 +112,7 @@ var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + hei
     // add subtitle
     g.append("text")
       .attr("x", (width / 2))
-      .attr("y", 0 - (margin.top / 2) + 8)
+      .attr("y", 0 - (margin.top / 2))
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_use %>px")
