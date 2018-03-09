@@ -1,0 +1,38 @@
+// Also _title_section.html.erb
+.all-titles {
+  margin-top: 30px;
+  .hidden {
+    display: none;
+  }
+  .fa.fa-pencil {
+    padding-left: 2px;
+    color: rgba(51,51,51,1);
+    font-size: 14px;
+    &:hover {
+      cursor: pointer;
+      color: rgba(51,51,51,0.85);
+      text-decoration: none;
+    }
+  }
+  h4 {
+    margin-top: 0;
+  }
+}
+
+#titles-form {
+  margin-top: 25px;
+  .btn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+  .fa.fa-check-square-o {
+    font-size: 20px;
+    &:hover {
+    color: $green;
+    }
+  }
+  .form-group {
+    margin-bottom: 10px;
+  }
+}

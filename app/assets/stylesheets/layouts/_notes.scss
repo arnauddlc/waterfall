@@ -1,0 +1,42 @@
+.notes {
+  // display: flex;
+  // align-items: baseline;
+  margin-top: 30px;
+  .hidden {
+    display: none;
+  }
+  p {
+    margin: 0;
+  }
+  .fa.fa-pencil {
+    padding-left: 2px;
+    color: rgba(51,51,51,1);
+    font-size: 14px;
+    &:hover {
+      cursor: pointer;
+      color: rgba(51,51,51,0.85);
+      text-decoration: none;
+    }
+  }
+}
+
+#notes-form {
+  margin-top: 30px;
+  .btn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+  .fa.fa-check-square-o {
+    font-size: 20px;
+    &:hover {
+    color: $green;
+    }
+  }
+  .form-group {
+    margin-bottom: 10px;
+  }
+  textarea.form-control {
+    height: 300px;
+  }
+}

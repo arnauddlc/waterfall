@@ -34,8 +34,13 @@
         <div id="design" class="tab-pane fade <%= 'in active' if @active_tab == "design" %>">
           <%= render 'charts/design_section' %>
         </div>
-        <div id="notes" class="tab-pane fade">
-          <%= render 'charts/notes_section' %>
+        <div id="notes" class="tab-pane fade <%= 'in active' if @active_tab == "notes" %>" >
+          <div id="chart-notes">
+            <%= render 'charts/notes_section' %>
+          </div>
+          <div id="notes-form" class="hidden">
+            <%= render 'charts/form_notes' %>
+          </div>
         </div>
       </div>
     </div>
