@@ -159,7 +159,7 @@ var g = svg.append("g")
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_size_landing + 2 %>px")
-      .text("Brownies sold at Gyspy Kitchen");
+      .text("Brownies Sold by Gyspy Kitchen");
 
     // add subtitle
     g.append("text")
@@ -168,7 +168,7 @@ var g = svg.append("g")
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
       .style("font-size", "<%= font_size_landing %>px")
-      .text("quantities, in thousands");
+      .text("quantities (in thousands)");
 
     // add bars
    g.selectAll(".bar")
@@ -214,7 +214,7 @@ var g = svg.append("g")
         .ease(d3.easeQuad)
         .attr("opacity", 1)
       .transition()
-        .delay(2800)
+        .delay(6800)
         .duration(100)
         .ease(d3.easeQuad)
         .attr("opacity", 0)
@@ -230,7 +230,7 @@ var g = svg.append("g")
           .attr("y", function(d) { return (y(d.value + d.offset)); })
           .attr("height", function(d) { return height - y(d.value); })
         .transition()
-          .delay(3000)
+          .delay(7000)
           .duration(400)
           .ease(d3.easeQuad)
           .attr("y", function(d) { return height - y(d.value); })
