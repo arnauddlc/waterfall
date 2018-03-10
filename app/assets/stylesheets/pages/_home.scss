@@ -19,7 +19,17 @@
 	}
 	.landing-image {
 		margin-top: 10px;
+		height: 550px;
 	}
+}
+
+.landing-chart {
+    background-color: white;
+    height: 249px;
+    width: 222px;
+    position: absolute;
+    top: 191px;
+    right: 182px;
 }
 
 @media (max-width: 1180px) {
@@ -38,6 +48,10 @@
     	position: absolute;
     	top: 200px;
     	right: 10px;
+    }
+
+    .landing-chart {
+    	visibility: hidden;
     }
   }
 
@@ -58,4 +72,8 @@
   	top: 275px;
   	right: -110px;
   }
+
+  .landing-chart {
+		visibility: hidden;
+	}
 }
