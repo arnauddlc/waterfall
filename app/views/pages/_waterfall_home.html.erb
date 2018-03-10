@@ -1,6 +1,21 @@
-<script src="https://d3js.org/d3.v4.min.js"></script>
 
-<% colors_hash = colors_selector %>
+
+<!-- data for landing chart -->
+<%
+dataset1 = {label: "Dec 17", value: 3, serietype: "baseline", offset: 0}
+dataset2 = {label: "Rainy season", value: 2, serietype: "less", offset: 1}
+dataset3 = {label: "Promotion", value: 1, serietype: "plus", offset: 1}
+dataset4 = {label: "Le Wagon", value: 3, serietype: "plus", offset: 2}
+dataset5 = {label: "Jan 18", value: 5, serietype: "baseline", offset: 0}
+
+data_landing = [dataset1, dataset2, dataset3, dataset4, dataset5]
+
+font_size_landing = 12
+%>
+
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
 
   <!-- This is a custom method to toggle show/hide of export button in navbar -->
 
@@ -17,7 +32,7 @@
 
   .axis text {
     font-family: "Arial";
-    font-size: <%= font_use - 2 %>px;
+    font-size: <%= font_size_landing - 4 %>px;
     transform: rotate(-45deg);
     text-anchor: end;
   }
@@ -26,16 +41,16 @@
     fill: #3EC28F;
   }
 
-  #bar-baseline-chart-<%= chart.id %> {
-    fill: <%= colors_hash[chart.color.to_sym]  %>;
+  #bar-baseline-landing {
+    fill: #141414;
   }
 
-  #bar-plus-chart-<%= chart.id %> {
-    fill: <%= colors_hash[:green]  %>;
+  #bar-plus-landing {
+    fill: #3EC28F;
   }
 
-  #bar-less-chart-<%= chart.id %> {
-    fill : <%= colors_hash[:orange]  %>;
+  #bar-less-landing {
+    fill : #FD7366;
   }
 
   .bar {
@@ -56,7 +71,7 @@
 
   .value {
     fill:white;
-    font: <%= font_use %>px;
+    font: <%= font_size_landing %>px;
     font-weight: 400;
     text-anchor: middle;
   }
@@ -71,23 +86,18 @@
 <script>
 
   // set up the margins according to page index or chart_builder
-<% if show_export? %>
-  var marginTop = 80;
-  var marginBottom = 100;
-  var marginSide = 50;
-<% else %>
-  var marginTop = 30;
-  var marginBottom = 40;
+  var marginTop = 60;
+  var marginBottom = 60;
   var marginSide = 10;
-<% end %>
+
 
     // make chart responsive
     function responsivefy(svg) {
 
       // get container and svg aspect ratio
       var container = d3.select(svg.node().parentNode),
-        widthSvg = parseInt(svg.style("width")),
-        heightSvg = parseInt(svg.style("height")),
+        widthSvg = parseInt(container.style("width")),
+        heightSvg = parseInt(container.style("height")),
         aspect = widthSvg / heightSvg;
 
       // add viewBox and preserveAspectRatio properties
@@ -101,9 +111,9 @@
     }
 
 
-var datasource = <%= chart.datasets.order(:created_at).to_json.html_safe %>
+var datasource = <%= data_landing.to_json.html_safe %>
 
-var svg = d3.select("#chart-<%= chart.id %> > svg");
+var svg = d3.select(".landing-chart > svg");
 
   svg.call(responsivefy);
 
@@ -138,7 +148,7 @@ var g = svg.append("g")
         .attr("font-family", "Arial")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
-        .attr("font-size", "<%= font_use %>px")
+        .attr("font-size", "<%= font_size_landing %>px")
         .attr("text-anchor", "end")
         .text("value");
 
@@ -148,8 +158,8 @@ var g = svg.append("g")
       .attr("y", 0 - (margin.top / 1.5))
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
-      .style("font-size", "<%= font_use + 6 %>px")
-      .text("<%= chart.title.html_safe if show_export? %>");
+      .style("font-size", "<%= font_size_landing + 2 %>px")
+      .text("Brownies sold at Gyspy Kitchen");
 
     // add subtitle
     g.append("text")
@@ -157,11 +167,11 @@ var g = svg.append("g")
       .attr("y", 0 - (margin.top / 2) + 10)
       .attr("text-anchor", "middle")
       .attr("font-family", "Arial")
-      .style("font-size", "<%= font_use %>px")
-      .text("<%= chart.subtitle.html_safe if show_export? %>");
+      .style("font-size", "<%= font_size_landing %>px")
+      .text("quantities, in thousands");
 
     // add bars
-    g.selectAll(".bar")
+   g.selectAll(".bar")
       .data(datasource)
       .enter().append("rect")
         .attr("font-family", "Arial")
@@ -170,13 +180,11 @@ var g = svg.append("g")
         .attr("y", function(d) { return height - y(d.value); }) // starting point of transition
         .attr("height", 0) // starting point of transitio
         .attr("class", function(d) {return ("bar bar-" + d.serietype); })
-        .attr("id", function(d) { return ("bar-" + d.serietype +"-chart-<%= chart.id %>"); })
-        .transition()
-          .delay(300)
-          .duration(600)
-          .ease(d3.easeQuad)
-          .attr("y", function(d) { return (y(d.value + d.offset)); })
-          .attr("height", function(d) { return height - y(d.value); });
+        .attr("id", function(d) { return ("bar-" + d.serietype +"-landing"); });
+
+
+
+        
 
     //add labels
     g.selectAll(".text")
@@ -187,16 +195,47 @@ var g = svg.append("g")
       .attr("class", function(d) { return "value value-" + d.serietype })
       .attr("x", (function(d) { return x(d.label) + x.bandwidth() / 2 ; }))
       .attr("y", function(d) {
-        if (d.serietype === "less") { return y(d.offset) - (<%= font_use %> *3/2); }
-        else if (d.serietype === "baseline") { return y(d.value) - ( <%= font_use %> *3/2)}
+        if (d.serietype === "less") { return y(d.offset) - (<%= font_size_landing %> *3/2); }
+        else if (d.serietype === "baseline") { return y(d.value) - ( <%= font_size_landing %> *3/2)}
         else { return y(d.value + d.offset) + 1;} })
-      .attr("dy", "<%= font_use %>px")
-      .style("font-size", "<%= font_use %>px")
+      .attr("dy", "<%= font_size_landing %>px")
+      .style("font-size", "<%= font_size_landing %>px")
       .text(function(d) {
         if (d.serietype === "less") { return "- " + d.value;}
-        else { return d.value; } })
+        else { return d.value; } });
+
+        repeat();
+
+    function repeat() {
+    g.selectAll(".value")
       .transition()
         .delay(900)
-        .attr("opacity", 1);
+        .duration(100)
+        .ease(d3.easeQuad)
+        .attr("opacity", 1)
+      .transition()
+        .delay(2800)
+        .duration(100)
+        .ease(d3.easeQuad)
+        .attr("opacity", 0)
+      .transition()
+        .delay(400);
+
+    g.selectAll(".bar")
+      .data(datasource)
+        .transition()
+          .delay(300)
+          .duration(600)
+          .ease(d3.easeQuad)
+          .attr("y", function(d) { return (y(d.value + d.offset)); })
+          .attr("height", function(d) { return height - y(d.value); })
+        .transition()
+          .delay(3000)
+          .duration(400)
+          .ease(d3.easeQuad)
+          .attr("y", function(d) { return height - y(d.value); })
+          .attr("height", 0)
+      .on("end", repeat);
+    };
 
 </script>
