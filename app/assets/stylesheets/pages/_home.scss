@@ -3,7 +3,7 @@
 	width: 100%;
 	min-height: 800px;
 	margin: 0;
-	padding: 20px;
+	// padding: 20px;
 	position: relative;
 	color: white;
 	background: linear-gradient(171deg, $dark-gray, $green 77%);
@@ -11,51 +11,77 @@
 		padding: 20px;
 		display: flex;
 		justify-content: space-between;
-		position: relative;
+		// position: relative;
 	}
 	.landing-title {
-		align-self: center;
-		padding-left: 45px;
+		// align-self: center;
+    width: 40%;
+		padding-left: 50px;
+    display: flex;
+    align-items: center;
 	}
 	.landing-image {
-		margin-top: 10px;
+    width: 60%;
+		img {
+      width: 100%;
+    }
 	}
 }
 
 @media (max-width: 1180px) {
 		.banner-landing{
-			min-height: 1000px;
-		}
-    .container-landing {
-    	display: flex;
-    	flex-direction: column;
-    }
-    .landing-title {
-		position: absolute;
-		top: 0;
-		}
-    .landing-image {
-    	position: absolute;
-    	top: 200px;
-    	right: 10px;
+			min-height: 950px;
+      .container-landing {
+      	display: flex;
+      	flex-direction: column;
+      }
+      .landing-title {
+    		// position: absolute;
+    		// top: 0;
+        width: 100%;
+        padding-left: 50px;
+  		}
+      .landing-image {
+      	// position: absolute;
+      	// top: 200px;
+      	// right: 10px;
+        width: 100%;
+        img {
+        padding-top: 30px;
+        width: 100%;
+        }
+      }
     }
   }
 
 @media (max-width: 726px) {
 	.banner-landing{
-		min-height: 1000px;
-	}
-  .container-landing {
-  	display: flex;
-  	flex-direction: column;
-  }
-  .landing-title {
-	position: absolute;
-	top: 5px;
-	}
-  .landing-image {
-  	position: absolute;
-  	top: 275px;
-  	right: -110px;
+		min-height: 600px;
+    .container-landing {
+    	display: flex;
+    	flex-direction: column;
+    }
+    .landing-title {
+    	// position: absolute;
+    	// top: 5px;
+      width: 100%;
+      padding-left: 20px;
+      h1 {
+        font-size: 40px;
+      }
+      h3 {
+        font-size: 25px;
+      }
+  	}
+    .landing-image {
+    	// position: absolute;
+    	// top: 275px;
+    	// right: -110px;
+      width: 100%;
+      img {
+        padding-top: 20px;
+        width: 100%;
+      }
+    }
   }
 }
